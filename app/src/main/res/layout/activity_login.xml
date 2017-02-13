@@ -40,7 +40,7 @@
 
     <TextView
         android:textAlignment="center"
-        android:text="Already registered? Sign in here"
+        android:text="Don't have an account? Sign in here"
         android:id="@+id/textViewSignIn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
