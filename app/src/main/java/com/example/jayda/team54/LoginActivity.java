@@ -48,6 +48,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         //if user is already logged in
         if (firebaseAuth.getCurrentUser() != null) {
             //start activity
+            finish();
+            startActivity(new Intent(getApplicationContext(), ApplicationActivity.class));
         }
 
         buttonSignIn.setOnClickListener(this);
@@ -83,6 +85,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         progressDialog.dismiss();
                         if(task.isSuccessful()) {
+                            //end current activity
+                            finish();
                             //start profile activity
                             startActivity(new Intent(getApplicationContext(),
                                     ApplicationActivity.class));

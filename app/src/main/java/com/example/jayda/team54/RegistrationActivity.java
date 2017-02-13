@@ -1,6 +1,7 @@
 package com.example.jayda.team54;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -30,11 +31,18 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_register);
 
         progressDialog = new ProgressDialog(this);
 
         firebaseAuth = FirebaseAuth.getInstance();
+
+        //if user is already logged in
+        if (firebaseAuth.getCurrentUser() != null) {
+            //start activity
+            finish();
+            startActivity(new Intent(getApplicationContext(), ApplicationActivity.class));
+        }
 
         buttonRegister = (Button) findViewById(R.id.buttonRegister);
         editTextEmail = (EditText) findViewById(R.id.editTextEmail);
@@ -74,13 +82,14 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             //user successfully registered and logged in
-                            // start profile activity here
-                            Toast.makeText(RegistrationActivity.this, "Registered Successfully",
-                                    Toast.LENGTH_SHORT).show();
-                            progressDialog.dismiss();
+                            // start application activity
+                            finish();
+                            startActivity(new Intent(getApplicationContext(),
+                                    ApplicationActivity.class));
+
                         } else {
-                            Toast.makeText(RegistrationActivity.this, "Registration unsuccessful, " +
-                                    "please try again", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(RegistrationActivity.this, "Registration unsuccessful, "
+                                    + "please try again", Toast.LENGTH_SHORT).show();
                             progressDialog.dismiss();
                         }
                     }
@@ -96,6 +105,7 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
 
         if (view == textViewSignIn) {
             //will open login activity here
+            startActivity(new Intent(this, LoginActivity.class));
         }
     }
 
