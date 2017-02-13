@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "565160777232",
+    "firebase_url": "https://team54-cc707.firebaseio.com",
+    "project_id": "team54-cc707",
+    "storage_bucket": "team54-cc707.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:565160777232:android:be8720e476d125bf",
+        "android_client_info": {
+          "package_name": "com.example.jayda.team54"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "565160777232-sp7ru0e96aur25hp3if49cgtn3h3u4q9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCz2pDo2WBTz0oj1gP5KEz22TUulkJtRwk"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
