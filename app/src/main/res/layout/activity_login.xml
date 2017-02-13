@@ -11,15 +11,6 @@
     tools:context="com.example.jayda.team54.MainActivity">
 
     <EditText
-        android:inputType="textPassword"
-        android:hint="Enter your password"
-        android:id="@+id/editTextPassword"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_alignParentStart="true" />
-
-    <EditText
         android:inputType="textEmailAddress"
         android:hint="Enter your email address"
         android:id="@+id/editTextEmail"
@@ -30,21 +21,40 @@
         android:layout_marginBottom="24dp" />
 
     <Button
-        android:text="Register"
+        android:text="Sign In"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/buttonRegister"
+        android:id="@+id/buttonSignIn"
         android:layout_below="@+id/editTextPassword"
         android:layout_alignParentStart="true"
         android:layout_marginTop="29dp" />
 
     <TextView
-        android:textAlignment="center"
-        android:text="Don't have an account? Sign in here"
-        android:id="@+id/textViewSignIn"
+        android:text="User Login"
+        android:textSize="30dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textViewUserLogin"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="37dp" />
+
+    <EditText
+        android:inputType="textPassword"
+        android:hint="Enter your password"
+        android:id="@+id/editTextPassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="14dp"
+        android:layout_centerVertical="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:textAlignment="center"
+        android:text="Don't have an account? Register here"
+        android:id="@+id/textViewSignUp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="11dp"
         android:layout_below="@+id/buttonRegister"
         android:layout_alignParentStart="true" />
 </RelativeLayout>
