@@ -16,7 +16,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class RegistrationActivity extends AppCompatActivity implements View.OnClickListener {
 
     private Button buttonRegister;
     private EditText editTextEmail;
@@ -75,11 +75,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         if (task.isSuccessful()) {
                             //user successfully registered and logged in
                             // start profile activity here
-                            Toast.makeText(MainActivity.this, "Registered Successfully",
+                            Toast.makeText(RegistrationActivity.this, "Registered Successfully",
                                     Toast.LENGTH_SHORT).show();
                             progressDialog.dismiss();
                         } else {
-                            Toast.makeText(MainActivity.this, "Registration unsuccessful, " +
+                            Toast.makeText(RegistrationActivity.this, "Registration unsuccessful, " +
                                     "please try again", Toast.LENGTH_SHORT).show();
                             progressDialog.dismiss();
                         }
