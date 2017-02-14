@@ -7,8 +7,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,6 +25,8 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
     private EditText editTextEmail;
     private EditText editTextPassword;
     private TextView textViewSignIn;
+
+    private Spinner accountSpinner;
 
     private ProgressDialog progressDialog;
 
@@ -48,6 +52,12 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
         editTextEmail = (EditText) findViewById(R.id.editTextEmail);
         editTextPassword = (EditText) findViewById(R.id.editTextPassword);
         textViewSignIn = (TextView) findViewById(R.id.textViewSignIn);
+        accountSpinner = (Spinner) findViewById(R.id.spinner2);
+
+        String[] accountArr = {"User", "Worker", "Manager", "Admin"};
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, accountArr);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        accountSpinner.setAdapter(adapter);
 
         buttonRegister.setOnClickListener(this);
         textViewSignIn.setOnClickListener(this);
