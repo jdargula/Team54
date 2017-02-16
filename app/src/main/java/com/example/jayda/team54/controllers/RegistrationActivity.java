@@ -1,6 +1,5 @@
-package com.example.jayda.team54;
+package com.example.jayda.team54.controllers;
 
-import android.app.Application;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.annotation.NonNull;
@@ -8,8 +7,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,13 +19,18 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
-public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
+import com.example.jayda.team54.model.UserType;
+import com.example.jayda.team54.R;
 
-    // initialize widgets
-    private Button buttonSignIn;
+
+public class RegistrationActivity extends AppCompatActivity implements View.OnClickListener {
+
+    private Button buttonRegister;
     private EditText editTextEmail;
     private EditText editTextPassword;
-    private TextView textViewSignUp;
+    private TextView textViewSignIn;
+
+    private Spinner accountSpinner;
 
     private ProgressDialog progressDialog;
 
@@ -33,13 +39,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
-
-        // get data from gui
-        buttonSignIn = (Button) findViewById(R.id.buttonSignIn);
-        editTextEmail = (EditText) findViewById(R.id.editTextEmail);
-        editTextPassword = (EditText) findViewById(R.id.editTextPassword);
-        textViewSignUp = (TextView) findViewById(R.id.textViewSignUp);
+        setContentView(R.layout.activity_register);
 
         progressDialog = new ProgressDialog(this);
 
@@ -52,15 +52,25 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             startActivity(new Intent(getApplicationContext(), ApplicationActivity.class));
         }
 
-        buttonSignIn.setOnClickListener(this);
-        textViewSignUp.setOnClickListener(this);
+        buttonRegister = (Button) findViewById(R.id.buttonRegister);
+        editTextEmail = (EditText) findViewById(R.id.editTextEmail);
+        editTextPassword = (EditText) findViewById(R.id.editTextPassword);
+        textViewSignIn = (TextView) findViewById(R.id.textViewSignIn);
+        accountSpinner = (Spinner) findViewById(R.id.spinner2);
 
+        ArrayAdapter<UserType> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, UserType.values());
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        accountSpinner.setAdapter(adapter);
+
+        buttonRegister.setOnClickListener(this);
+        textViewSignIn.setOnClickListener(this);
 
     }
 
-    private void loginUser() {
+    private void registerUser()  {
         String email = editTextEmail.getText().toString().trim();
         String password = editTextPassword.getText().toString().trim();
+        UserType type = (UserType) accountSpinner.getSelectedItem();
 
         if (TextUtils.isEmpty(email)) {
             //email is empty
@@ -75,35 +85,44 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             //stopping function execution
             return;
         }
+        //if validated, register user
 
         progressDialog.setMessage("One moment please...");
         progressDialog.show();
 
-        firebaseAuth.signInWithEmailAndPassword(email, password)
+        //TODO: make the firebase user also have a user type
+
+        firebaseAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                        progressDialog.dismiss();
-                        if(task.isSuccessful()) {
-                            //end current activity
+                        if (task.isSuccessful()) {
+                            //user successfully registered and logged in
+                            // start application activity
                             finish();
-                            //start profile activity
                             startActivity(new Intent(getApplicationContext(),
                                     ApplicationActivity.class));
+
+                        } else {
+                            Toast.makeText(RegistrationActivity.this, "Registration unsuccessful, "
+                                    + "please try again", Toast.LENGTH_SHORT).show();
+                            progressDialog.dismiss();
                         }
                     }
                 });
+
     }
 
     @Override
     public void onClick(View view) {
-        if (view == buttonSignIn) {
-            loginUser();
+        if (view == buttonRegister) {
+            registerUser();
         }
 
-        if (view == textViewSignUp) {
-            finish();
-            startActivity(new Intent(this, RegistrationActivity.class));
+        if (view == textViewSignIn) {
+            //will open login activity here
+            startActivity(new Intent(this, LoginActivity.class));
         }
     }
+
 }

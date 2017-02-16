@@ -1,4 +1,4 @@
-package com.example.jayda.team54;
+package com.example.jayda.team54.controllers;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -9,6 +9,8 @@ import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+
+import com.example.jayda.team54.R;
 
 public class ApplicationActivity extends AppCompatActivity implements View.OnClickListener {
 
