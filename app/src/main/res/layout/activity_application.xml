@@ -22,7 +22,7 @@
             android:text="Enter your name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/textViewUserEmail"
+            android:id="@+id/editTextName"
             android:textAlignment="center"
             android:textSize="25dp" />
 
@@ -30,7 +30,7 @@
             android:text="Enter your zip code"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/textViewUserEmail"
+            android:id="@+id/editTextAddress"
             android:textAlignment="center"
             android:textSize="25dp" />
         <Button
