@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
 
 public class ApplicationActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -17,6 +18,9 @@ public class ApplicationActivity extends AppCompatActivity implements View.OnCli
     private TextView textViewUserEmail;
     private Button buttonLogout;
 
+    private DatabaseReference databaseReference;
+
+    
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

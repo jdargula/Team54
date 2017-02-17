@@ -17,14 +17,29 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true">
 
-        <TextView
-            android:text="TextView"
+
+        <EditText
+            android:text="Enter your name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/textViewUserEmail"
             android:textAlignment="center"
             android:textSize="25dp" />
 
+        <EditText
+            android:text="Enter your zip code"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/textViewUserEmail"
+            android:textAlignment="center"
+            android:textSize="25dp" />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Save Information"
+            android:id="@+id/buttonSaveInformation"
+            android:layout_gravity="center_horizontal"
+            />
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
