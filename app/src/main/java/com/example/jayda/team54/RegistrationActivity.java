@@ -18,6 +18,9 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class RegistrationActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -31,6 +34,7 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
     private ProgressDialog progressDialog;
 
     private FirebaseAuth firebaseAuth;
+    private DatabaseReference databaseReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +44,7 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
         progressDialog = new ProgressDialog(this);
 
         firebaseAuth = FirebaseAuth.getInstance();
+        databaseReference = FirebaseDatabase.getInstance().getReference();
 
         //if user is already logged in
         if (firebaseAuth.getCurrentUser() != null) {
@@ -94,6 +99,13 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
                             //user successfully registered and logged in
                             // start application activity
                             finish();
+
+                            String accountSelection = accountSpinner.getSelectedItem().toString();
+                            FirebaseUser user = firebaseAuth.getCurrentUser();
+                            databaseReference.child(user.getUid()).child("account").setValue(accountSelection);
+
+                            progressDialog.dismiss();
+
                             startActivity(new Intent(getApplicationContext(),
                                     ApplicationActivity.class));
 

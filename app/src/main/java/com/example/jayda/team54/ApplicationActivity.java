@@ -61,11 +61,14 @@ public class ApplicationActivity extends AppCompatActivity implements View.OnCli
         String name = editTextName.getText().toString().trim();
         String address = editTextAddress.getText().toString().trim();
 
-        UserInformation userInformation = new UserInformation(name, address);
+        //UserInformation userInformation = new UserInformation(name, address);
 
         FirebaseUser user = firebaseAuth.getCurrentUser();
 
-        databaseReference.child(user.getUid()).setValue(userInformation);
+        //databaseReference.child(user.getUid()).setValue(userInformation);
+
+        databaseReference.child(user.getUid()).child("name").setValue(name);
+        databaseReference.child(user.getUid()).child("address").setValue(address);
 
         Toast.makeText(this, "Information Saved", Toast.LENGTH_LONG);
     }
@@ -76,6 +79,10 @@ public class ApplicationActivity extends AppCompatActivity implements View.OnCli
             firebaseAuth.signOut();
             finish();
             startActivity(new Intent(this, LoginActivity.class));
+        }
+
+        if (view == buttonSaveInformation){
+            saveUserInformation();
         }
     }
 }
