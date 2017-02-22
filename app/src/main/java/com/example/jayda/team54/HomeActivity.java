@@ -1,5 +1,6 @@
 package com.example.jayda.team54;
 
+import android.app.Application;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
