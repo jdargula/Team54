@@ -58,20 +58,24 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     }
 
+    /**
+     * Checks for valid email and password input. If valid, than signs in user with Firebase,
+     * otherwise, it cancels.
+     */
     private void loginUser() {
         String email = editTextEmail.getText().toString().trim();
         String password = editTextPassword.getText().toString().trim();
 
         if (TextUtils.isEmpty(email)) {
             //email is empty
-            Toast.makeText(this, "Please enter your email address", Toast.LENGTH_SHORT);
+            Toast.makeText(this, "Please enter your email address", Toast.LENGTH_SHORT).show();
             //stopping function execution
             return;
         }
 
         if (TextUtils.isEmpty(password)) {
             //password is empty
-            Toast.makeText(this, "Please enter a password", Toast.LENGTH_SHORT);
+            Toast.makeText(this, "Please enter a password", Toast.LENGTH_SHORT).show();
             //stopping function execution
             return;
         }

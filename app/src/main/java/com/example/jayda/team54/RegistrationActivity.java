@@ -69,20 +69,24 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
 
     }
 
+    /**
+     * Checks for valid email and password input, and creates a user within Firebase if the input
+     * is valid, and cancels it otherwise.
+     */
     private void registerUser()  {
         String email = editTextEmail.getText().toString().trim();
         String password = editTextPassword.getText().toString().trim();
 
         if (TextUtils.isEmpty(email)) {
             //email is empty
-            Toast.makeText(this, "Please enter your email address", Toast.LENGTH_SHORT);
+            Toast.makeText(this, "Please enter your email address", Toast.LENGTH_SHORT).show();
             //stopping function execution
             return;
         }
 
         if (TextUtils.isEmpty(password)) {
             //password is empty
-            Toast.makeText(this, "Please enter a password", Toast.LENGTH_SHORT);
+            Toast.makeText(this, "Please enter a password", Toast.LENGTH_SHORT).show();
             //stopping function execution
             return;
         }

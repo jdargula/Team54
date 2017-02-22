@@ -11,12 +11,12 @@
     tools:context="com.example.jayda.team54.ApplicationActivity">
 
     <TextView
-        android:text="TextView"
+        android:text="Profile"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:id="@+id/textView" />
+        android:id="@+id/profile" />
 
     <LinearLayout
         android:orientation="vertical"

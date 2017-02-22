@@ -57,6 +57,9 @@ public class ApplicationActivity extends AppCompatActivity implements View.OnCli
         buttonSaveInformation.setOnClickListener(this);
     }
 
+    /**
+     * Takes input for user's name and address, and adds the data to the database.
+     */
     private void saveUserInformation() {
         String name = editTextName.getText().toString().trim();
         String address = editTextAddress.getText().toString().trim();
@@ -70,7 +73,7 @@ public class ApplicationActivity extends AppCompatActivity implements View.OnCli
         databaseReference.child(user.getUid()).child("name").setValue(name);
         databaseReference.child(user.getUid()).child("address").setValue(address);
 
-        Toast.makeText(this, "Information Saved", Toast.LENGTH_LONG);
+        Toast.makeText(this, "Information Saved", Toast.LENGTH_LONG).show();
     }
 
     @Override
