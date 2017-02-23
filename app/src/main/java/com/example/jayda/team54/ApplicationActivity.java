@@ -84,8 +84,13 @@ public class ApplicationActivity extends AppCompatActivity implements View.OnCli
             startActivity(new Intent(this, LoginActivity.class));
         }
 
-        if (view == buttonSaveInformation){
+        if (view == buttonSaveInformation) {
             saveUserInformation();
+            if (view == buttonSaveInformation) {
+                saveUserInformation();
+                finish();
+                startActivity(new Intent(this, HomeActivity.class));
+            }
         }
     }
 }

@@ -50,7 +50,7 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
         if (firebaseAuth.getCurrentUser() != null) {
             //start activity
             finish();
-            startActivity(new Intent(getApplicationContext(), ApplicationActivity.class));
+            startActivity(new Intent(getApplicationContext(), HomeActivity.class));
         }
 
         buttonRegister = (Button) findViewById(R.id.buttonRegister);
@@ -101,7 +101,7 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             //user successfully registered and logged in
-                            // start application activity
+                            // start home activity
                             finish();
 
                             String accountSelection = accountSpinner.getSelectedItem().toString();
@@ -111,7 +111,7 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
                             progressDialog.dismiss();
 
                             startActivity(new Intent(getApplicationContext(),
-                                    ApplicationActivity.class));
+                                    HomeActivity.class));
 
                         } else {
                             Toast.makeText(RegistrationActivity.this, "Registration unsuccessful, "

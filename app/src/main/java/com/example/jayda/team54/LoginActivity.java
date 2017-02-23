@@ -49,7 +49,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         if (firebaseAuth.getCurrentUser() != null) {
             //start activity
             finish();
-            startActivity(new Intent(getApplicationContext(), ApplicationActivity.class));
+            startActivity(new Intent(getApplicationContext(), HomeActivity.class));
         }
 
         buttonSignIn.setOnClickListener(this);
@@ -93,7 +93,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             finish();
                             //start profile activity
                             startActivity(new Intent(getApplicationContext(),
-                                    ApplicationActivity.class));
+                                    HomeActivity.class));
                         }
                     }
                 });
