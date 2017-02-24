@@ -23,15 +23,17 @@
 
         <Button
             android:text="Edit Profile"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/buttonEditProfile"
+            android:layout_gravity="center_horizontal"
             android:textSize="14sp" />
 
         <Button
             android:text="Log Out"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
             android:id="@+id/buttonLogout" />
     </LinearLayout>
 </RelativeLayout>

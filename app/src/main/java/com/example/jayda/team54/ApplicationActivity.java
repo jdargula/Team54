@@ -1,8 +1,10 @@
 package com.example.jayda.team54;
 
+import android.app.Application;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -11,8 +13,11 @@ import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class ApplicationActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -46,7 +51,38 @@ public class ApplicationActivity extends AppCompatActivity implements View.OnCli
         editTextName = (EditText) findViewById(R.id.editTextName);
         buttonSaveInformation = (Button) findViewById(R.id.buttonSaveInformation);
 
+        //read data back from database and call setText on EditText widgets
+        //that way, users won't have to reenter all their info every time
         FirebaseUser user = firebaseAuth.getCurrentUser();
+        DatabaseReference nameReference = databaseReference.child(user.getUid()).child("name");
+        ValueEventListener nameListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                String name = dataSnapshot.getValue().toString();
+                editTextName.setText(name, TextView.BufferType.EDITABLE);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        };
+        nameReference.addValueEventListener(nameListener);
+
+        DatabaseReference addressReference = databaseReference.child(user.getUid()).child("address");
+        ValueEventListener addressListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                String address = dataSnapshot.getValue().toString();
+                editTextAddress.setText(address, TextView.BufferType.EDITABLE);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        };
+        addressReference.addValueEventListener((addressListener));
 
         textViewUserEmail = (TextView) findViewById(R.id.textViewUserEmail);
         textViewUserEmail.setText("Welcome, " + user.getEmail());
@@ -73,7 +109,7 @@ public class ApplicationActivity extends AppCompatActivity implements View.OnCli
         databaseReference.child(user.getUid()).child("name").setValue(name);
         databaseReference.child(user.getUid()).child("address").setValue(address);
 
-        Toast.makeText(this, "Information Saved", Toast.LENGTH_LONG).show();
+        Toast.makeText(this, "Information Saved", Toast.LENGTH_SHORT).show();
     }
 
     @Override

@@ -107,6 +107,8 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
                             String accountSelection = accountSpinner.getSelectedItem().toString();
                             FirebaseUser user = firebaseAuth.getCurrentUser();
                             databaseReference.child(user.getUid()).child("account").setValue(accountSelection);
+                            databaseReference.child(user.getUid()).child("name").setValue("Name");
+                            databaseReference.child(user.getUid()).child("address").setValue("");
 
                             progressDialog.dismiss();
 
