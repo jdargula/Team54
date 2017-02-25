@@ -23,6 +23,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     private Button buttonLogout;
     private Button buttonEditProfile;
     private Button buttonSubmitWaterReport;
+    private Button buttonViewWaterReports;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,10 +43,12 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         textViewUserWelcome.setText("Welcome, " + user.getEmail()); //We can change this to display name later
         buttonEditProfile = (Button) findViewById(R.id.buttonEditProfile);
         buttonSubmitWaterReport = (Button) findViewById(R.id.buttonSubmitWaterReport);
+        buttonViewWaterReports = (Button) findViewById(R.id.buttonViewWaterReports);
         buttonLogout = (Button) findViewById(R.id.buttonLogout);
 
         buttonEditProfile.setOnClickListener(this);
         buttonSubmitWaterReport.setOnClickListener(this);
+        buttonViewWaterReports.setOnClickListener(this);
         buttonLogout.setOnClickListener(this);
     }
 
@@ -59,6 +62,11 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         if(view == buttonSubmitWaterReport){
             finish();
             startActivity(new Intent(this, SubmitReportActivity.class));
+        }
+
+        if(view == buttonViewWaterReports){
+            finish();
+            startActivity(new Intent(this, ViewReportsActivity.class));
         }
 
         if (view == buttonLogout) {
