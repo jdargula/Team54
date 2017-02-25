@@ -28,7 +28,6 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
     private EditText editTextEmail;
     private EditText editTextPassword;
     private TextView textViewSignIn;
-
     private Spinner accountSpinner;
 
     private ProgressDialog progressDialog;

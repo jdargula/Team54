@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_submit_report"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.example.jayda.team54.SubmitReportActivity">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="41dp">
+
+        <TextView
+            android:text= "Date and Time of Report"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/textViewDateTime"
+            android:textSize="24sp"
+            android:textAlignment="center" />
+
+        <EditText
+            android:text="Figure out how to auto generate this lol"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/editTextDateTime"
+            android:textAlignment="center"
+            android:textSize="25dp" />
+
+        <TextView
+            android:text= "Report Number"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/textViewReportNumber"
+            android:textSize="24sp"
+            android:textAlignment="center" />
+
+        <EditText
+            android:text="1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/editTextReportNumber"
+            android:textAlignment="center"
+            android:textSize="25dp" />
+
+        <TextView
+            android:text= "Name of Reporter"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/textViewNameReporter"
+            android:textSize="24sp"
+            android:textAlignment="center" />
+
+        <EditText
+            android:text="Figure out how to auto generate this lol"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/editTextNameReporter"
+            android:textAlignment="center"
+            android:textSize="25dp" />
+
+        <TextView
+            android:text= "Location of Water"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/textViewLocationWater"
+            android:textSize="24sp"
+            android:textAlignment="center" />
+
+        <EditText
+            android:text="Figure out how to use location services or gps"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/editTextLocationWater"
+            android:textAlignment="center"
+            android:textSize="25dp" />
+
+        <TextView
+            android:text= "Type of Water"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/textViewTypeWater"
+            android:textSize="24sp"
+            android:textAlignment="center" />
+
+        <Spinner
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/spinnerTypeWater" />
+
+        <TextView
+            android:text= "Condition of Water"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/textViewConditionWater"
+            android:textSize="24sp"
+            android:textAlignment="center" />
+
+        <Spinner
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/spinnerConditionWater" />
+
+        <Button
+            android:text="Submit Report"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/buttonSubmitReport"
+            android:layout_gravity="center_horizontal"
+            android:textSize="14sp" />
+
+        <Button
+            android:text="Cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:id="@+id/buttonCancel" />
+
+    </LinearLayout>
+
+</ScrollView>

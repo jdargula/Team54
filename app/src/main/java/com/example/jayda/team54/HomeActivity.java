@@ -22,6 +22,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     private TextView textViewUserWelcome;
     private Button buttonLogout;
     private Button buttonEditProfile;
+    private Button buttonSubmitWaterReport;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,9 +41,11 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         textViewUserWelcome = (TextView) findViewById(R.id.textViewUserWelcome);
         textViewUserWelcome.setText("Welcome, " + user.getEmail()); //We can change this to display name later
         buttonEditProfile = (Button) findViewById(R.id.buttonEditProfile);
+        buttonSubmitWaterReport = (Button) findViewById(R.id.buttonSubmitWaterReport);
         buttonLogout = (Button) findViewById(R.id.buttonLogout);
 
         buttonEditProfile.setOnClickListener(this);
+        buttonSubmitWaterReport.setOnClickListener(this);
         buttonLogout.setOnClickListener(this);
     }
 
@@ -52,6 +55,12 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
             finish();
             startActivity(new Intent(this, ApplicationActivity.class));
         }
+
+        if(view == buttonSubmitWaterReport){
+            finish();
+            startActivity(new Intent(this, SubmitReportActivity.class));
+        }
+
         if (view == buttonLogout) {
             firebaseAuth.signOut();
             finish();
