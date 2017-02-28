@@ -8,11 +8,16 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 /**
  * Created by Emily on 2/24/2017.
@@ -39,6 +44,8 @@ public class SubmitReportActivity extends AppCompatActivity implements View.OnCl
 
         firebaseAuth = FirebaseAuth.getInstance();
         databaseReference = FirebaseDatabase.getInstance().getReference();
+        FirebaseUser user = firebaseAuth.getCurrentUser();
+        DatabaseReference nameReference = databaseReference.child(user.getUid()).child("name");
 
         //find references to ui elements
         buttonSubmitReport = (Button) findViewById(R.id.buttonSubmitReport);
@@ -49,6 +56,20 @@ public class SubmitReportActivity extends AppCompatActivity implements View.OnCl
         editTextLocationWater = (EditText) findViewById(R.id.editTextLocationWater);
         spinnerTypeWater = (Spinner) findViewById(R.id.spinnerTypeWater);
         spinnerConditionWater = (Spinner) findViewById(R.id.spinnerConditionWater);
+
+        ValueEventListener nameListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                String name = dataSnapshot.getValue().toString();
+                editTextNameReporter.setText(name, TextView.BufferType.EDITABLE);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        };
+        nameReference.addValueEventListener(nameListener);
 
         String[] typeWaterArr = {"Bottled", "Well", "Stream", "Lake", "Spring", "Other"};
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, typeWaterArr);
