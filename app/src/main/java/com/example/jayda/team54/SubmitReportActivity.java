@@ -1,5 +1,10 @@
 package com.example.jayda.team54;
 
+import java.util.Calendar;
+import java.util.TimeZone;
+import java.util.Date;
+import java.util.GregorianCalendar;
+
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -37,6 +42,12 @@ public class SubmitReportActivity extends AppCompatActivity implements View.OnCl
     private FirebaseAuth firebaseAuth;
     private DatabaseReference databaseReference;
 
+    private TimeZone tz;
+    private Calendar calendar;
+    private Date currentTime;
+    private String currentDateTime;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,6 +67,16 @@ public class SubmitReportActivity extends AppCompatActivity implements View.OnCl
         editTextLocationWater = (EditText) findViewById(R.id.editTextLocationWater);
         spinnerTypeWater = (Spinner) findViewById(R.id.spinnerTypeWater);
         spinnerConditionWater = (Spinner) findViewById(R.id.spinnerConditionWater);
+
+        tz = TimeZone.getTimeZone("America/New_York");
+        calendar = new GregorianCalendar(tz);
+        currentTime = new Date();
+        calendar.setTime(currentTime);
+        currentDateTime = (calendar.get(Calendar.MONTH) + 1) + "/" + calendar.get(Calendar.DAY_OF_MONTH)
+                + "/" + calendar.get(Calendar.YEAR) + " " + calendar.get(Calendar.HOUR) + ":"
+                + calendar.get(Calendar.MINUTE);
+
+        editTextDateTime.setText(currentDateTime);
 
         ValueEventListener nameListener = new ValueEventListener() {
             @Override
