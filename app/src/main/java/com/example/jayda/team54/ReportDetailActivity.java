@@ -18,9 +18,7 @@ import java.util.HashMap;
 public class ReportDetailActivity extends AppCompatActivity implements View.OnClickListener {
 
     //extra info passed through Intent by ViewReportsActivity
-    private int position;
-    private long id;
-    //private int pos;
+    private String key;
 
     //ui elements
     private TextView reportNumber;
@@ -38,12 +36,7 @@ public class ReportDetailActivity extends AppCompatActivity implements View.OnCl
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_report_detail);
 
-        position = getIntent().getIntExtra("position", position);
-        position += 1;
-        id = getIntent().getLongExtra("id", id);
-        //pos = getIntent().getIntExtra("pos", pos);
-
-        String positionStr = position + "";
+        key = getIntent().getStringExtra("key");
 
         //get ui elements
         reportNumber = (TextView) findViewById(R.id.reportNum);
@@ -58,7 +51,7 @@ public class ReportDetailActivity extends AppCompatActivity implements View.OnCl
 
         //read report info from database
         databaseRef = FirebaseDatabase.getInstance().getReference();
-        DatabaseReference reportRef = databaseRef.child("reports").child(positionStr);
+        DatabaseReference reportRef = databaseRef.child("reports").child(key);
         ValueEventListener reportListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {

@@ -75,12 +75,9 @@ public class ViewReportsActivity extends AppCompatActivity implements View.OnCli
     public void onItemClick(AdapterView<?> l, View v, int position, long id){
         finish();
         Intent intent = new Intent();
-        //int pos = list.getSelectedItemPosition();
+        String key = listArr.get(position);
         intent.setClass(this, ReportDetailActivity.class);
-        //intent.putExtra("pos", pos);
-        intent.putExtra("position", position);
-        intent.putExtra("id", id);
+        intent.putExtra("key", key);
         startActivity(intent);
-        //startActivity(new Intent(this, ReportDetailActivity.class));
     }
 }
