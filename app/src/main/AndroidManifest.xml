@@ -25,7 +25,8 @@
         <activity android:name=".ApplicationActivity" />
         <activity android:name=".HomeActivity" />
         <activity android:name=".SubmitReportActivity" />
-        <activity android:name=".ViewReportsActivity"></activity>
+        <activity android:name=".ViewReportsActivity" />
+        <activity android:name=".ReportDetailActivity"></activity>
     </application>
 
 </manifest>
