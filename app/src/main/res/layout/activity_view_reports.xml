@@ -19,8 +19,8 @@
         android:textSize="14sp" />
 
     <ListView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
         android:id="@+id/list"
         android:layout_below="@+id/buttonHome"
         android:layout_alignParentStart="true"

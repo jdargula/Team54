@@ -1,6 +1,7 @@
 package com.example.jayda.team54;
 import java.util.ArrayList;
 
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -19,7 +20,7 @@ import com.google.firebase.database.DatabaseError;
  * Created by Emily on 2/25/2017.
  */
 
-public class ViewReportsActivity extends AppCompatActivity implements View.OnClickListener {
+public class ViewReportsActivity extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemClickListener {
 
     private Button buttonHome;
     private ListView list;
@@ -55,11 +56,11 @@ public class ViewReportsActivity extends AppCompatActivity implements View.OnCli
         setContentView(R.layout.activity_view_reports);
 
         buttonHome = (Button) findViewById(R.id.buttonHome);
-
         buttonHome.setOnClickListener(this);
 
         list = (ListView) findViewById(R.id.list);
         this.getData();
+        list.setOnItemClickListener(this);
     }
 
     @Override
@@ -68,5 +69,18 @@ public class ViewReportsActivity extends AppCompatActivity implements View.OnCli
             finish();
             startActivity(new Intent(this, HomeActivity.class));
         }
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> l, View v, int position, long id){
+        finish();
+        Intent intent = new Intent();
+        //int pos = list.getSelectedItemPosition();
+        intent.setClass(this, ReportDetailActivity.class);
+        //intent.putExtra("pos", pos);
+        intent.putExtra("position", position);
+        intent.putExtra("id", id);
+        startActivity(intent);
+        //startActivity(new Intent(this, ReportDetailActivity.class));
     }
 }
