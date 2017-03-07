@@ -1,5 +1,12 @@
 package com.example.jayda.team54;
 
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.HashMap;
+import java.util.TimeZone;
+import java.util.Date;
+import java.util.GregorianCalendar;
+
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -8,11 +15,16 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 /**
  * Created by Emily on 2/24/2017.
@@ -29,8 +41,16 @@ public class SubmitReportActivity extends AppCompatActivity implements View.OnCl
     private Spinner spinnerTypeWater;
     private Spinner spinnerConditionWater;
 
+    private long reportNumberValue;
+
     private FirebaseAuth firebaseAuth;
     private DatabaseReference databaseReference;
+
+    private TimeZone tz;
+    private Calendar calendar;
+    private Date currentTime;
+    private String currentDateTime;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +59,7 @@ public class SubmitReportActivity extends AppCompatActivity implements View.OnCl
 
         firebaseAuth = FirebaseAuth.getInstance();
         databaseReference = FirebaseDatabase.getInstance().getReference();
+        FirebaseUser user = firebaseAuth.getCurrentUser();
 
         //find references to ui elements
         buttonSubmitReport = (Button) findViewById(R.id.buttonSubmitReport);
@@ -50,6 +71,55 @@ public class SubmitReportActivity extends AppCompatActivity implements View.OnCl
         spinnerTypeWater = (Spinner) findViewById(R.id.spinnerTypeWater);
         spinnerConditionWater = (Spinner) findViewById(R.id.spinnerConditionWater);
 
+        //Autogenerate report number
+        DatabaseReference reportNumReference = databaseReference.child("reports");
+        ValueEventListener reportNumListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.getValue() == null){
+                    databaseReference.child("reportNumber").setValue(0);
+                    reportNumberValue = 0;
+                } else{
+                    reportNumberValue = dataSnapshot.getChildrenCount() + 1;
+                    String reportNumStr = reportNumberValue + "";
+                    editTextReportNumber.setText(reportNumStr);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        };
+        reportNumReference.addValueEventListener(reportNumListener);
+
+        //Autogenerate date and time
+        tz = TimeZone.getTimeZone("America/New_York");
+        calendar = new GregorianCalendar(tz);
+        currentTime = new Date();
+        calendar.setTime(currentTime);
+        currentDateTime = (calendar.get(Calendar.MONTH) + 1) + "/" + calendar.get(Calendar.DAY_OF_MONTH)
+                + "/" + calendar.get(Calendar.YEAR) + " " + calendar.get(Calendar.HOUR) + ":"
+                + calendar.get(Calendar.MINUTE);
+        editTextDateTime.setText(currentDateTime);
+
+        //Autogenerate name of reporter
+        DatabaseReference nameReference = databaseReference.child(user.getUid()).child("name");
+        ValueEventListener nameListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                String name = dataSnapshot.getValue().toString();
+                editTextNameReporter.setText(name, TextView.BufferType.EDITABLE);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        };
+        nameReference.addValueEventListener(nameListener);
+
+        //Set up spinners
         String[] typeWaterArr = {"Bottled", "Well", "Stream", "Lake", "Spring", "Other"};
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, typeWaterArr);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -60,6 +130,7 @@ public class SubmitReportActivity extends AppCompatActivity implements View.OnCl
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerConditionWater.setAdapter(adapter1);
 
+        //Set up buttons
         buttonSubmitReport.setOnClickListener(this);
         buttonCancel.setOnClickListener(this);
     }
