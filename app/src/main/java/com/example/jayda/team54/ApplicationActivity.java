@@ -66,6 +66,7 @@ public class ApplicationActivity extends AppCompatActivity implements View.OnCli
             public void onCancelled(DatabaseError databaseError) {
 
             }
+
         };
         nameReference.addValueEventListener(nameListener);
 
