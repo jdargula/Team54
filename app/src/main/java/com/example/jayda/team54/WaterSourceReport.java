@@ -40,4 +40,8 @@ public class WaterSourceReport implements Serializable {
         this.waterType = waterType;
         this.waterCondition = waterCondition;
     }
+
+    public String getWaterLocation() {
+        return waterLocation;
+    }
 }

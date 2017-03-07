@@ -1,7 +1,10 @@
 package com.example.jayda.team54;
 
+import java.util.ArrayList;
+
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.widget.ArrayAdapter;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -9,10 +12,20 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.ValueEventListener;
+
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 
 public class DisplayMap extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
+    private final FirebaseDatabase database = FirebaseDatabase.getInstance();
+    private DatabaseReference ref;
+    private ArrayList<WaterSourceReport> listArr = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,6 +35,30 @@ public class DisplayMap extends FragmentActivity implements OnMapReadyCallback {
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+    }
+
+    /**
+     * Method to retrieve locations from database
+     * @return an arraylist with the WaterSourceReport objects
+     */
+    private void getData() {
+        ref = database.getReference();
+
+        // retrieve data from database
+        ref.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot data) {
+                for (DataSnapshot snapshot : data.getChildren()) {
+                    WaterSourceReport report = snapshot.getValue(WaterSourceReport.class);
+                    listArr.add(report);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                System.out.println("Could not read");
+            }
+        });
     }
 
 
@@ -37,10 +74,26 @@ public class DisplayMap extends FragmentActivity implements OnMapReadyCallback {
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-
+        // populate the ArrayList of Water Reports
+        this.getData();
+        for (WaterSourceReport reports : listArr) {
+            try {
+                String location = reports.getWaterLocation();
+                String[] latLong = location.split(",");
+                int lat = Integer.parseInt(latLong[0]);
+                int lng = Integer.parseInt(latLong[1]);
+                LatLng tempLocation = new LatLng(lat, lng);
+                mMap.addMarker(new MarkerOptions().position(tempLocation));
+            } catch (Exception e) {
+                e.printStackTrace();
+                System.out.println("The location was not entered in the form latitude, longitude");
+            }
+        }
+        // example marker code
         // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(-34, 151);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+        // LatLng sydney = new LatLng(-34, 151);
+        // mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
+        // mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+
     }
 }

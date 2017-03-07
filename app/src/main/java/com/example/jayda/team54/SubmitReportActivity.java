@@ -147,6 +147,7 @@ public class SubmitReportActivity extends AppCompatActivity implements View.OnCl
         String conditionWater = spinnerConditionWater.getSelectedItem().toString();
 
         //we should probably do some kind of input validation here
+        //yes pls >:(
 
         //enter info into a WaterSourceReport instance
         WaterSourceReport waterReportInstance = new WaterSourceReport(dateTime, reportNum, nameReporter, locationWater, typeWater, conditionWater);
