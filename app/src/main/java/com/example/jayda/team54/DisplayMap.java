@@ -16,6 +16,7 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.UiSettings;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -56,14 +57,18 @@ public class DisplayMap extends FragmentActivity implements OnMapReadyCallback, 
         ValueEventListener valueListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()){
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()){   //for 1, 2, ..., n
                     try {
                         String reportLocation = snapshot.child("waterLocation").getValue().toString();
                         String[] locArr = reportLocation.split(",");
                         int lat = Integer.parseInt(locArr[0].trim());
                         int lng = Integer.parseInt(locArr[1].trim());
                         LatLng tempLoc = new LatLng(lat,lng);
-                        mMap.addMarker(new MarkerOptions().position(tempLoc).title("hello"));
+
+                        String numStr = snapshot.child("reportNum").getValue().toString();
+                        String typeStr = snapshot.child("waterType").getValue().toString();
+                        String conditionStr = snapshot.child("waterCondition").getValue().toString();
+                        mMap.addMarker(new MarkerOptions().position(tempLoc).title("Report #" + numStr).snippet(typeStr + ", " + conditionStr));
                     } catch (Exception e){
                         //
                     }
@@ -94,6 +99,12 @@ public class DisplayMap extends FragmentActivity implements OnMapReadyCallback, 
         mapUI = mMap.getUiSettings();
         mapUI.setZoomControlsEnabled(true);
         this.getData();
+        mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener(){
+            @Override
+            public boolean onMarkerClick(Marker marker){
+                return false;
+            }
+        });
 
         // Add a marker in Sydney and move the camera
         //LatLng sydney = new LatLng(-34, 151);
