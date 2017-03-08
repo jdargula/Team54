@@ -147,7 +147,26 @@ public class SubmitReportActivity extends AppCompatActivity implements View.OnCl
         String conditionWater = spinnerConditionWater.getSelectedItem().toString();
 
         //we should probably do some kind of input validation here
-        //yes pls >:(
+        //yes pls >:(   <- lol
+
+        //input validation for location
+        //could probably be made more robust but i aint got time bruh its 4am
+        String[] splitStr = locationWater.split(",");
+        try {
+            int lat = Integer.parseInt(splitStr[0].trim());
+            int lng = Integer.parseInt(splitStr[1].trim());
+            if (lat < -90 || lat > 90){
+                Toast.makeText(SubmitReportActivity.this, "Latitude is from -90 to 90", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            if (lng < -180 || lng > 180) {
+                Toast.makeText(SubmitReportActivity.this, "Longitude is from -180 to 180", Toast.LENGTH_SHORT).show();
+                return;
+            }
+        } catch (Exception e){
+            Toast.makeText(SubmitReportActivity.this, "Please enter location format: LAT,LONG", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
         //enter info into a WaterSourceReport instance
         WaterSourceReport waterReportInstance = new WaterSourceReport(dateTime, reportNum, nameReporter, locationWater, typeWater, conditionWater);
@@ -156,14 +175,17 @@ public class SubmitReportActivity extends AppCompatActivity implements View.OnCl
         databaseReference.child("reports").child(reportNumStr).setValue(waterReportInstance);
 
         Toast.makeText(SubmitReportActivity.this, "Thank you for submitting a report!", Toast.LENGTH_SHORT).show();
+
+        finish();
+        startActivity(new Intent(this, HomeActivity.class));
     }
 
     @Override
     public void onClick(View view) {
         if (view == buttonSubmitReport) {
             submitWaterReport();
-            finish();
-            startActivity(new Intent(this, HomeActivity.class));
+            //finish();
+            //startActivity(new Intent(this, HomeActivity.class));
         }
         if (view == buttonCancel) {
             finish();
