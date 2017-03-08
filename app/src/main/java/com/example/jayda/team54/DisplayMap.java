@@ -1,6 +1,7 @@
 package com.example.jayda.team54;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
@@ -25,7 +26,7 @@ public class DisplayMap extends FragmentActivity implements OnMapReadyCallback {
     private GoogleMap mMap;
     private final FirebaseDatabase database = FirebaseDatabase.getInstance();
     private DatabaseReference ref;
-    private ArrayList<WaterSourceReport> listArr = new ArrayList<>();
+    private List<String> listArr = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +40,6 @@ public class DisplayMap extends FragmentActivity implements OnMapReadyCallback {
 
     /**
      * Method to retrieve locations from database
-     * @return an arraylist with the WaterSourceReport objects
      */
     private void getData() {
         ref = database.getReference();
@@ -48,9 +48,10 @@ public class DisplayMap extends FragmentActivity implements OnMapReadyCallback {
         ref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot data) {
-                for (DataSnapshot snapshot : data.getChildren()) {
-                    WaterSourceReport report = snapshot.getValue(WaterSourceReport.class);
-                    listArr.add(report);
+                listArr.clear();
+                for (DataSnapshot snapshot : data.child("reports").getChildren()) {
+                    String reportLocation = snapshot.child("waterLocation").getValue(String.class);
+                    listArr.add(reportLocation);
                 }
             }
 
@@ -76,10 +77,9 @@ public class DisplayMap extends FragmentActivity implements OnMapReadyCallback {
         mMap = googleMap;
         // populate the ArrayList of Water Reports
         this.getData();
-        for (WaterSourceReport reports : listArr) {
+        for (String reportsLoc : listArr) {
             try {
-                String location = reports.getWaterLocation();
-                String[] latLong = location.split(",");
+                String[] latLong = reportsLoc.split(",");
                 int lat = Integer.parseInt(latLong[0]);
                 int lng = Integer.parseInt(latLong[1]);
                 LatLng tempLocation = new LatLng(lat, lng);
