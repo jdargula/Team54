@@ -46,6 +46,14 @@
             android:textSize="14sp" />
 
         <Button
+            android:text="View Water Availability"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/buttonViewAvailability"
+            android:layout_gravity="center_horizontal"
+            android:textSize="14sp" />
+
+        <Button
             android:text="Log Out"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

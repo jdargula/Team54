@@ -24,6 +24,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     private Button buttonEditProfile;
     private Button buttonSubmitWaterReport;
     private Button buttonViewWaterReports;
+    private Button buttonViewAvailability;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,12 +45,14 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         buttonEditProfile = (Button) findViewById(R.id.buttonEditProfile);
         buttonSubmitWaterReport = (Button) findViewById(R.id.buttonSubmitWaterReport);
         buttonViewWaterReports = (Button) findViewById(R.id.buttonViewWaterReports);
+        buttonViewAvailability = (Button) findViewById(R.id.buttonViewAvailability);
         buttonLogout = (Button) findViewById(R.id.buttonLogout);
 
         buttonEditProfile.setOnClickListener(this);
         buttonSubmitWaterReport.setOnClickListener(this);
         buttonViewWaterReports.setOnClickListener(this);
         buttonLogout.setOnClickListener(this);
+        buttonViewAvailability.setOnClickListener(this);
     }
 
     @Override
@@ -67,6 +70,11 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         if(view == buttonViewWaterReports){
             finish();
             startActivity(new Intent(this, ViewReportsActivity.class));
+        }
+
+        if (view == buttonViewAvailability){
+            finish();
+            startActivity(new Intent(this, DisplayMap.class));
         }
 
         if (view == buttonLogout) {
