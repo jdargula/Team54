@@ -111,9 +111,13 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
 
                             progressDialog.dismiss();
 
-                            startActivity(new Intent(getApplicationContext(),
-                                    HomeActivity.class));
-
+                            if (accountSelection.equals("User")) {
+                                startActivity(new Intent(getApplicationContext(),
+                                        UserHomeActivity.class));
+                            } else {
+                                startActivity(new Intent(getApplicationContext(),
+                                        HomeActivity.class));
+                            }
                         } else {
                             Toast.makeText(RegistrationActivity.this, "Registration unsuccessful, "
                                     + "please try again", Toast.LENGTH_SHORT).show();

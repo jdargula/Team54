@@ -42,7 +42,8 @@
 
         <activity
             android:name=".DisplayMap"
-            android:label="@string/title_activity_display_map"></activity>
+            android:label="@string/title_activity_display_map" />
+        <activity android:name=".UserHomeActivity"></activity>
     </application>
 
 </manifest>
