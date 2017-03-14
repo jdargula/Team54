@@ -27,7 +27,7 @@
             android:textAlignment="center" />
 
         <EditText
-            android:text="Figure out how to auto generate this lol"
+            android:text="Date/time"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/editTextDateTime"
@@ -59,7 +59,7 @@
             android:textAlignment="center" />
 
         <EditText
-            android:text="Figure out how to auto generate this lol"
+            android:text="Name of Reporter"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/editTextNameReporter"
@@ -75,7 +75,7 @@
             android:textAlignment="center" />
 
         <EditText
-            android:text="Figure out how to use location services or gps"
+            android:text="10,10"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/editTextLocationWater"

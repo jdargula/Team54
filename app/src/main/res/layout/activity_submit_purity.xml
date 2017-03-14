@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:tools="http://schemas.android.com/tools"
+android:id="@+id/activity_submit_report"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:paddingBottom="50dp"
+android:paddingLeft="@dimen/activity_horizontal_margin"
+android:paddingRight="@dimen/activity_horizontal_margin"
+android:paddingTop="@dimen/activity_vertical_margin"
+android:layout_marginBottom="20dp"
+tools:context="com.example.jayda.team54.SubmitPurityActivity">
+
+<LinearLayout
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_alignParentTop="true"
+    android:layout_centerHorizontal="true">
+
+    <TextView
+        android:text= "Date and Time of Report"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/textViewDateTime"
+        android:textSize="24sp"
+        android:textAlignment="center" />
+
+    <EditText
+        android:text="Date/time"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/editTextDateTime"
+        android:textAlignment="center"
+        android:textSize="25dp" />
+
+    <TextView
+        android:text= "Report Number"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/textViewReportNumber"
+        android:textSize="24sp"
+        android:textAlignment="center" />
+
+    <EditText
+        android:text="10"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/editTextReportNumber"
+        android:textAlignment="center"
+        android:textSize="25dp" />
+
+    <TextView
+        android:text= "Name of Worker"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/textViewNameWorker"
+        android:textSize="24sp"
+        android:textAlignment="center" />
+
+    <EditText
+        android:text="Name of Worker"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/editTextNameWorker"
+        android:textAlignment="center"
+        android:textSize="25dp" />
+
+    <TextView
+        android:text= "Location of Water"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/textViewLocationWater"
+        android:textSize="24sp"
+        android:textAlignment="center" />
+
+    <EditText
+        android:text="10,10"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/editTextLocationWater"
+        android:textAlignment="center"
+        android:textSize="25dp" />
+
+    <TextView
+        android:text= "Overall Condition"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/textViewConditionWater"
+        android:textSize="24sp"
+        android:textAlignment="center" />
+
+    <Spinner
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/spinnerConditionWater" />
+
+
+    <TextView
+        android:text= "Virus PPM"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/textViewVirus"
+        android:textSize="24sp"
+        android:textAlignment="center" />
+
+    <EditText
+        android:text="Virus PPM"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/editTextVirus"
+        android:textAlignment="center"
+        android:textSize="25dp" />
+
+    <TextView
+        android:text= "Contaminant PPM"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/textViewContaminant"
+        android:textSize="24sp"
+        android:textAlignment="center" />
+
+    <EditText
+        android:text="Contaminant PPM"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/editTextContaminant"
+        android:textAlignment="center"
+        android:textSize="25dp" />
+
+    <Button
+        android:text="Submit Report"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/buttonSubmitReport"
+        android:layout_gravity="center_horizontal"
+        android:textSize="14sp" />
+
+    <Button
+        android:text="Cancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:id="@+id/buttonCancel" />
+
+</LinearLayout>
+
+</ScrollView>

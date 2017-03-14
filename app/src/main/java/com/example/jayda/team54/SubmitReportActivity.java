@@ -135,6 +135,10 @@ public class SubmitReportActivity extends AppCompatActivity implements View.OnCl
         buttonCancel.setOnClickListener(this);
     }
 
+    /**
+     * Pulls information from the UI elements, creates a WaterSourceReport instance using that,
+     * and then stores that into the database.
+     */
     private void submitWaterReport(){
         //pull info from ui elements
         //btw a lot of these will prob change types

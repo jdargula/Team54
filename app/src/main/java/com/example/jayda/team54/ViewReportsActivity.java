@@ -28,6 +28,9 @@ public class ViewReportsActivity extends AppCompatActivity implements View.OnCli
     private DatabaseReference ref;
     private final ArrayList<String> listArr = new ArrayList<>();
 
+    /**
+     *
+     */
     public void getData() {
         ref = database.getReference();
 
