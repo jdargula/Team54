@@ -49,6 +49,9 @@ public class SubmitPurityActivity extends AppCompatActivity implements View.OnCl
     private Date currentTime;
     private String currentDateTime;
 
+    //Report Number Autogeneration
+    private long reportNumberValue;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -108,10 +111,40 @@ public class SubmitPurityActivity extends AppCompatActivity implements View.OnCl
         nameReference.addValueEventListener(nameListener);
 
         //Autogenerate Report Number
-        //TODO
+        DatabaseReference reportNumReference = databaseReference.child("purity");
+        ValueEventListener reportNumListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.child("reportNum").getValue() == null){
+                    reportNumberValue = 0;
+                    reportNumberValue++;
+                    String reportNumberStr = reportNumberValue + "";
+                    editTextReportNum.setText(reportNumberStr);
+                } else{
+                    //read from database into local var
+                    //increment that local var and use it to set the ui value
+                    //only write back to the database after the user has clicked submit and everything passes
+                    //aka right before you return to home
+                    reportNumberValue = (long) dataSnapshot.child("reportNum").getValue();
+                    reportNumberValue++;
+                    String reportNumStr = reportNumberValue + "";
+                    editTextReportNum.setText(reportNumStr);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        };
+        reportNumReference.addValueEventListener(reportNumListener);
     }
 
     private void submitPurityReport(){
+        //input validation
+        //copy paste location validation from submit water report activity
+        //make sure virus and contaminant are both ints
+
         //pull info from ui elements
         String dateTime = editTextDateTime.getText().toString().trim();
         String reportNumStr = editTextReportNum.getText().toString().trim();
@@ -124,13 +157,14 @@ public class SubmitPurityActivity extends AppCompatActivity implements View.OnCl
         String contaminantStr = editTextContaminant.getText().toString().trim();
         int contaminant = Integer.parseInt(contaminantStr);
 
-        //input validation
-
         //Put information into model
-        //WaterPurityReport purityReportInstance = new WaterPurityReport(dateTime, reportNum, workerName, waterLocation, waterCondition, virus, contaminant);
+        WaterPurityReport purityReportInstance = new WaterPurityReport(dateTime, reportNum, workerName, waterLocation, waterCondition, virus, contaminant);
 
         //Store information into database
-        //databaseReference.child("purity").child(reportNumStr).setValue(purityReportInstance);
+        databaseReference.child("purity").child(reportNumStr).setValue(purityReportInstance);
+
+        //update report number
+        databaseReference.child("purity").child("reportNum").setValue(reportNumberValue);
 
         Toast.makeText(SubmitPurityActivity.this, "Thank you for submitting a report!", Toast.LENGTH_SHORT).show();
 
@@ -141,9 +175,9 @@ public class SubmitPurityActivity extends AppCompatActivity implements View.OnCl
     @Override
     public void onClick(View view){
         if (view == buttonSubmitReport){
-            //submitPurityReport();
-            finish();
-            startActivity(new Intent(this, HomeActivity.class));
+            submitPurityReport();
+            //finish();
+            //startActivity(new Intent(this, HomeActivity.class));
         }
 
         if (view == buttonCancel){

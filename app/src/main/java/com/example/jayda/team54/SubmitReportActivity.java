@@ -76,11 +76,18 @@ public class SubmitReportActivity extends AppCompatActivity implements View.OnCl
         ValueEventListener reportNumListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                if (dataSnapshot.getValue() == null){
-                    databaseReference.child("reportNumber").setValue(0);
+                if (dataSnapshot.child("reportNum").getValue() == null){
                     reportNumberValue = 0;
+                    reportNumberValue++;
+                    String reportNumberStr = reportNumberValue + "";
+                    editTextReportNumber.setText(reportNumberStr);
                 } else{
-                    reportNumberValue = dataSnapshot.getChildrenCount() + 1;
+                    //read from database into local var
+                    //increment that local var and use it to set the ui value
+                    //only write back to the database after the user has clicked submit and everything passes
+                    //aka right before you return to home
+                    reportNumberValue = (long) dataSnapshot.child("reportNum").getValue();
+                    reportNumberValue++;
                     String reportNumStr = reportNumberValue + "";
                     editTextReportNumber.setText(reportNumStr);
                 }
@@ -150,11 +157,7 @@ public class SubmitReportActivity extends AppCompatActivity implements View.OnCl
         String typeWater = spinnerTypeWater.getSelectedItem().toString();
         String conditionWater = spinnerConditionWater.getSelectedItem().toString();
 
-        //we should probably do some kind of input validation here
-        //yes pls >:(   <- lol
-
         //input validation for location
-        //could probably be made more robust but i aint got time bruh its 4am
         String[] splitStr = locationWater.split(",");
         try {
             int lat = Integer.parseInt(splitStr[0].trim());
@@ -177,6 +180,9 @@ public class SubmitReportActivity extends AppCompatActivity implements View.OnCl
 
         //store instance into database
         databaseReference.child("reports").child(reportNumStr).setValue(waterReportInstance);
+
+        //update report number
+        databaseReference.child("reports").child("reportNum").setValue(reportNumberValue);
 
         Toast.makeText(SubmitReportActivity.this, "Thank you for submitting a report!", Toast.LENGTH_SHORT).show();
 

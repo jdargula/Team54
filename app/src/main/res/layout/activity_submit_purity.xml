@@ -105,7 +105,7 @@ tools:context="com.example.jayda.team54.SubmitPurityActivity">
         android:textAlignment="center" />
 
     <EditText
-        android:text="Virus PPM"
+        android:text="0"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/editTextVirus"
@@ -121,7 +121,7 @@ tools:context="com.example.jayda.team54.SubmitPurityActivity">
         android:textAlignment="center" />
 
     <EditText
-        android:text="Contaminant PPM"
+        android:text="0"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/editTextContaminant"
