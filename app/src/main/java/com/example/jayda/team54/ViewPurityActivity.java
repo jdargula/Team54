@@ -1,7 +1,7 @@
 package com.example.jayda.team54;
+
 import java.util.ArrayList;
 
-import android.widget.AdapterView;
 import android.widget.ListView;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -17,16 +17,15 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 
 /**
- * Created by Emily on 2/25/2017.
+ * Created by Josufi on 3/14/17.
  */
 
-public class ViewReportsActivity extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemClickListener {
-
+public class ViewPurityActivity extends AppCompatActivity implements View.OnClickListener {
     private Button buttonHome;
     private ListView list;
     private final FirebaseDatabase database = FirebaseDatabase.getInstance();
     private DatabaseReference ref;
-    private final ArrayList<String> reportsArr = new ArrayList<>();
+    private final ArrayList<String> purityArr = new ArrayList<>();
 
     public void getData() {
         ref = database.getReference();
@@ -35,13 +34,13 @@ public class ViewReportsActivity extends AppCompatActivity implements View.OnCli
         ref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot data) {
-                for (DataSnapshot i : data.child("reports").getChildren()) {
+                for (DataSnapshot i : data.child("purity").getChildren()) {
                     if (!(i.getKey().equals("reportNum"))) {
-                        reportsArr.add(i.getKey());
+                        purityArr.add(i.getKey());
                     }
                 }
-                ArrayAdapter arrayAdapter = new ArrayAdapter(ViewReportsActivity.this,
-                        android.R.layout.simple_list_item_1, reportsArr);
+                ArrayAdapter arrayAdapter = new ArrayAdapter(ViewPurityActivity.this,
+                        android.R.layout.simple_list_item_1, purityArr);
                 list.setAdapter(arrayAdapter);
             }
 
@@ -55,14 +54,13 @@ public class ViewReportsActivity extends AppCompatActivity implements View.OnCli
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_view_reports);
+        setContentView(R.layout.activity_view_purity);
 
         buttonHome = (Button) findViewById(R.id.buttonHome);
         buttonHome.setOnClickListener(this);
 
         list = (ListView) findViewById(R.id.list);
         this.getData();
-        list.setOnItemClickListener(this);
     }
 
     @Override
@@ -71,15 +69,5 @@ public class ViewReportsActivity extends AppCompatActivity implements View.OnCli
             finish();
             startActivity(new Intent(this, HomeActivity.class));
         }
-    }
-
-    @Override
-    public void onItemClick(AdapterView<?> l, View v, int position, long id){
-        finish();
-        Intent intent = new Intent();
-        String key = reportsArr.get(position);
-        intent.setClass(this, ReportDetailActivity.class);
-        intent.putExtra("key", key);
-        startActivity(intent);
     }
 }

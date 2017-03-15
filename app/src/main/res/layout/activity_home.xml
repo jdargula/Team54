@@ -54,6 +54,13 @@
             android:textSize="14sp" />
 
         <Button
+            android:text="View Water Purity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/buttonViewPurity"
+            android:layout_gravity="center_horizontal" />
+
+        <Button
             android:text="Submit Water Purity Report"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

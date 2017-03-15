@@ -9,7 +9,7 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignParentBottom="true"
+        android:layout_alignParentTop="true"
         android:layout_alignParentStart="true">
 
         <TextView
@@ -45,10 +45,17 @@
             android:textSize="14sp" />
 
         <Button
-            android:text="Log Out"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/buttonViewPurity"
+            android:layout_gravity="center_horizontal"
+            android:text="View Water Purity" />
+
+        <Button
+            android:id="@+id/buttonLogout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:id="@+id/buttonLogout" />
+            android:text="Log Out" />
     </LinearLayout>
 </RelativeLayout>

@@ -27,6 +27,7 @@
         <activity android:name=".HomeActivity" />
         <activity android:name=".SubmitReportActivity" />
         <activity android:name=".ViewReportsActivity" />
+        <activity android:name=".ViewPurityActivity" />
         <activity android:name=".ReportDetailActivity" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.

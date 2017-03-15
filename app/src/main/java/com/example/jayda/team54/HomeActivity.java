@@ -32,6 +32,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     private Button buttonSubmitWaterReport;
     private Button buttonViewWaterReports;
     private Button buttonViewAvailability;
+    private Button buttonViewPurity;
     private Button buttonSubmitWaterPurityReport;
 
     @Override
@@ -56,6 +57,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         buttonSubmitWaterReport = (Button) findViewById(R.id.buttonSubmitWaterReport);
         buttonViewWaterReports = (Button) findViewById(R.id.buttonViewWaterReports);
         buttonViewAvailability = (Button) findViewById(R.id.buttonViewAvailability);
+        buttonViewPurity = (Button) findViewById(R.id.buttonViewPurity);
         buttonSubmitWaterPurityReport = (Button) findViewById(R.id.buttonSubmitWaterPurityReport);
         buttonLogout = (Button) findViewById(R.id.buttonLogout);
 
@@ -65,6 +67,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         buttonViewWaterReports.setOnClickListener(this);
         buttonLogout.setOnClickListener(this);
         buttonViewAvailability.setOnClickListener(this);
+        buttonViewPurity.setOnClickListener(this);
         buttonSubmitWaterPurityReport.setOnClickListener(this);
 
         //if current user is of type user, hide certain buttons
@@ -75,6 +78,9 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                 if (dataSnapshot.child("account").getValue().toString().equals("User")){
                     //hide button(s)
                     buttonSubmitWaterPurityReport.setVisibility(View.GONE);
+                }
+                if (!(dataSnapshot.child("account").getValue().toString().equals("Manager"))) {
+                    buttonViewPurity.setVisibility(View.GONE);
                 }
             }
 
@@ -101,6 +107,11 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         if(view == buttonViewWaterReports){
             finish();
             startActivity(new Intent(this, ViewReportsActivity.class));
+        }
+
+        if (view == buttonViewPurity) {
+            finish();
+            startActivity(new Intent(this, ViewPurityActivity.class));
         }
 
         if (view == buttonViewAvailability){
