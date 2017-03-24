@@ -1,13 +1,90 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent" android:layout_height="match_parent"
-    android:id="@+id/activity_home"
-    tools:context="com.example.jayda.team54.HomeActivity">
+    android:id="@+id/activity_submit_report"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="50dp"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:layout_marginBottom="20dp"
+    tools:context="com.example.jayda.team54.SubmitPurityActivity">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true">
+
+    <TextView
+    android:text= "Location"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/textViewLocation"
+    android:textSize="24sp"
+    android:textAlignment="center" />
+
+    <EditText
+        android:text="0"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/editTextLocation"
+        android:textAlignment="center"
+        android:textSize="25dp" />
+
+    <TextView
+        android:text= "Virus/Contaminant"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/textViewVirusContaminant"
+        android:textSize="24sp"
+        android:textAlignment="center" />
+
+    <Spinner
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="32dp"
+        android:id="@+id/spinnerVirusContaminant" />
+
+    <TextView
+        android:text= "Year"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/textViewYear"
+        android:textSize="24sp"
+        android:textAlignment="center" />
+
+    <EditText
+        android:text="0"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/editTextYear"
+        android:textAlignment="center"
+        android:textSize="25dp" />
+
+        <Button
+            android:text="Create Graph"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/buttonCreateGraph"
+            android:layout_gravity="center_horizontal"
+            android:textSize="14sp" />
+
+        <Button
+            android:text="Done"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/buttonDone"
+            android:layout_gravity="center_horizontal"
+            android:textSize="14sp" />
 
     <com.jjoe64.graphview.GraphView
         android:layout_width="match_parent"
         android:layout_height="200dip"
         android:id="@+id/graph" />
 
-</RelativeLayout>
+    </LinearLayout>
+</ScrollView>
