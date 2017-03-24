@@ -34,6 +34,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     private Button buttonViewAvailability;
     private Button buttonViewPurity;
     private Button buttonSubmitWaterPurityReport;
+    private Button buttonViewHistory;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +61,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         buttonViewPurity = (Button) findViewById(R.id.buttonViewPurity);
         buttonSubmitWaterPurityReport = (Button) findViewById(R.id.buttonSubmitWaterPurityReport);
         buttonLogout = (Button) findViewById(R.id.buttonLogout);
+        buttonViewHistory = (Button) findViewById(R.id.buttonViewHistory);
 
         //set up buttons
         buttonEditProfile.setOnClickListener(this);
@@ -69,6 +71,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         buttonViewAvailability.setOnClickListener(this);
         buttonViewPurity.setOnClickListener(this);
         buttonSubmitWaterPurityReport.setOnClickListener(this);
+        buttonViewHistory.setOnClickListener(this);
 
         //if current user is of type user, hide certain buttons
         DatabaseReference userReference = databaseReference.child(user.getUid());
@@ -122,6 +125,11 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         if (view == buttonSubmitWaterPurityReport){
             finish();
             startActivity(new Intent(this, SubmitPurityActivity.class));
+        }
+
+        if (view == buttonViewHistory){
+            finish();
+            startActivity(new Intent(this, HistoryActivity.class));
         }
 
         if (view == buttonLogout) {

@@ -45,7 +45,8 @@
             android:name=".DisplayMap"
             android:label="@string/title_activity_display_map" />
         <activity android:name=".UserHomeActivity" />
-        <activity android:name=".SubmitPurityActivity"></activity>
+        <activity android:name=".SubmitPurityActivity" />
+        <activity android:name=".HistoryActivity"></activity>
     </application>
 
 </manifest>
