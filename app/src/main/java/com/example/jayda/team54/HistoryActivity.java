@@ -76,10 +76,15 @@ public class HistoryActivity extends AppCompatActivity implements View.OnClickLi
             return;
         }
 
+        //TODO: Read from database here
+        //Search through purity reports using getChildren and a for loop
+        //Only use report if it matches the year input by manager
+        //If there are multiple reports with the same month, average them
+
         //create actual graph
         DataPoint[] dataPoints = new DataPoint[12];
         for (int i = 0; i < 12; i++){
-            dataPoints[i] = new DataPoint(i, 1);
+            dataPoints[i] = new DataPoint(i, 1);    //instead of 1, it should be the virus/contaminant ppm average for that month
         }
         LineGraphSeries<DataPoint> series = new LineGraphSeries<>(dataPoints);
         graph.addSeries(series);
