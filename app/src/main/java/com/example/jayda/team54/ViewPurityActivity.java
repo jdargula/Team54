@@ -2,6 +2,7 @@ package com.example.jayda.team54;
 
 import java.util.ArrayList;
 
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -20,7 +21,7 @@ import com.google.firebase.database.DatabaseError;
  * Created by Josufi on 3/14/17.
  */
 
-public class ViewPurityActivity extends AppCompatActivity implements View.OnClickListener {
+public class ViewPurityActivity extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemClickListener {
     private Button buttonHome;
     private ListView list;
     private final FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -62,6 +63,7 @@ public class ViewPurityActivity extends AppCompatActivity implements View.OnClic
 
         list = (ListView) findViewById(R.id.list);
         this.getData();
+        list.setOnItemClickListener(this);
     }
 
     @Override
@@ -70,5 +72,15 @@ public class ViewPurityActivity extends AppCompatActivity implements View.OnClic
             finish();
             startActivity(new Intent(this, HomeActivity.class));
         }
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> l, View v, int position, long id){
+        finish();
+        Intent intent = new Intent();
+        String key = purityArr.get(position);
+        intent.setClass(this, PurityDetailActivity.class);
+        intent.putExtra("key", key);
+        startActivity(intent);
     }
 }
