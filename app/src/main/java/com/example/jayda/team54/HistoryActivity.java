@@ -51,7 +51,6 @@ public class HistoryActivity extends AppCompatActivity implements View.OnClickLi
         for (int i = 0; i < 12; i++) {
             cMonthArr[i] = new ArrayList();
             vMonthArr[i] = new ArrayList();
-
         }
 
         super.onCreate(savedInstanceState);
@@ -73,6 +72,10 @@ public class HistoryActivity extends AppCompatActivity implements View.OnClickLi
         buttonDone.setOnClickListener(this);
     }
 
+    /**
+     * Pulls input from the ui elements, then creates a graph based on that info, with time on the
+     * x-axis and virus/contaminant ppm on the y-axis
+     */
     private void createGraph(){
         //pull info from ui elements
         String location = editTextLocation.getText().toString().trim();
@@ -105,10 +108,7 @@ public class HistoryActivity extends AppCompatActivity implements View.OnClickLi
             return;
         }
 
-        //TODO: Read from database here
-        //Search through purity reports using getChildren and a for loop
-        //Only use report if it matches the year input by manager
-        //If there are multiple reports with the same month, average them
+        //reading info from database; get virus/contaminant ppm data for relevant year/location
         ref = database.getReference();
         ref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -145,7 +145,7 @@ public class HistoryActivity extends AppCompatActivity implements View.OnClickLi
 
         });
 
-
+        //average the virus/contaminant ppm if they fall on the same month
         int[] contamAvg = new int[12];
         for (int month = 0; month < 12; month ++) {
             int contamTot = 0;

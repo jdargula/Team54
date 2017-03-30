@@ -140,6 +140,10 @@ public class SubmitPurityActivity extends AppCompatActivity implements View.OnCl
         reportNumReference.addValueEventListener(reportNumListener);
     }
 
+    /**
+     * Validates input from ui elements, then puts them into a WaterPurityReport, and finally into
+     * the database.
+     */
     private void submitPurityReport(){
         //input validation
         //copy paste location validation from submit water report activity

@@ -27,10 +27,11 @@ public class ViewPurityActivity extends AppCompatActivity implements View.OnClic
     private DatabaseReference ref;
     private final ArrayList<String> purityArr = new ArrayList<>();
 
+    /**
+     * Get data from the database and add to array for use in the ListView adapter
+     */
     public void getData() {
         ref = database.getReference();
-
-        // retrieve data from database and add to array for ListView adapter
         ref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot data) {

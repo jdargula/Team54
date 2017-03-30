@@ -28,10 +28,11 @@ public class ViewReportsActivity extends AppCompatActivity implements View.OnCli
     private DatabaseReference ref;
     private final ArrayList<String> reportsArr = new ArrayList<>();
 
+    /**
+     * Get data from database and add to array for use in ListView adapter
+     */
     public void getData() {
         ref = database.getReference();
-
-        // retrieve data from database and add to array for ListView adapter
         ref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot data) {

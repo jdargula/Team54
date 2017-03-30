@@ -84,6 +84,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                 }
                 if (!(dataSnapshot.child("account").getValue().toString().equals("Manager"))) {
                     buttonViewPurity.setVisibility(View.GONE);
+                    buttonViewHistory.setVisibility(View.GONE);
                 }
             }
 

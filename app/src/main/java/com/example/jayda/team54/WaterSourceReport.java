@@ -17,14 +17,7 @@ public class WaterSourceReport implements Serializable {
     public String waterCondition;
 
     /**
-     * No args class constructor.
-     */
-    public WaterSourceReport(){
-
-    }
-
-    /**
-     * Class constructor with params for name and address.
+     * Class constructor with params for dateTime, reportNum, reporterName, waterLocation, waterType, and waterCondition.
      * @param dateTime Date and time the report was created.
      * @param reportNum Report number which indicates when it was created relative to other reports.
      * @param reporterName The name of the user who submitted the report.
@@ -41,6 +34,10 @@ public class WaterSourceReport implements Serializable {
         this.waterCondition = waterCondition;
     }
 
+    /**
+     * Getter for waterLocation
+     * @return waterLocation The location of the water source
+     */
     public String getWaterLocation() {
         return waterLocation;
     }
