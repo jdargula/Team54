@@ -36,8 +36,6 @@ public class HistoryActivity extends AppCompatActivity implements View.OnClickLi
     private DatabaseReference ref;
     private final ArrayList[] cMonthArr = new ArrayList[12];
     private final ArrayList[] vMonthArr = new ArrayList[12];
-//    private final ArrayList contamArr = new ArrayList<>();
-//    private final ArrayList virusArr = new ArrayList<>();
 
     private GraphView graph;
     private EditText editTextLocation;
