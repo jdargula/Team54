@@ -115,23 +115,25 @@ public class HistoryActivity extends AppCompatActivity implements View.OnClickLi
             public void onDataChange(DataSnapshot data) {
                 HashMap pReport;
                 for (DataSnapshot i : data.child("purity").getChildren()) {
-                    pReport = (HashMap) i.getValue();
-                    String dateValue = pReport.get("dateTime").toString();
-                    Calendar reportDate = new GregorianCalendar();
-                    DateFormat format = new SimpleDateFormat("MM/dd/yyyy HH:mm", Locale.ENGLISH);
-                    Long cPPM = (Long) pReport.get("contaminantPPM");
-                    Long vPPM = (Long) pReport.get("virusPPM");
-                    try {
-                        Date date = format.parse(dateValue);
-                        reportDate.setTime(date);
-                        int reportYear = reportDate.get(Calendar.YEAR);
-                        if (reportYear == yearInt) {
-                            int reportMonth = reportDate.get(Calendar.MONTH);
-                            cMonthArr[reportMonth].add(cPPM);
-                            vMonthArr[reportMonth].add(vPPM);
+                    if (!(i.getKey().equals("reportNum"))) {
+                        pReport = (HashMap) i.getValue();
+                        String dateValue = pReport.get("dateTime").toString();
+                        Calendar reportDate = new GregorianCalendar();
+                        DateFormat format = new SimpleDateFormat("MM/dd/yyyy HH:mm", Locale.ENGLISH);
+                        Long cPPM = (Long) pReport.get("contaminantPPM");
+                        Long vPPM = (Long) pReport.get("virusPPM");
+                        try {
+                            Date date = format.parse(dateValue);
+                            reportDate.setTime(date);
+                            int reportYear = reportDate.get(Calendar.YEAR);
+                            if (reportYear == yearInt) {
+                                int reportMonth = reportDate.get(Calendar.MONTH);
+                                cMonthArr[reportMonth].add(cPPM);
+                                vMonthArr[reportMonth].add(vPPM);
+                            }
+                        } catch (ParseException e) {
+                            e.printStackTrace();
                         }
-                    } catch (ParseException e) {
-                        e.printStackTrace();
                     }
                 }
             }
@@ -140,6 +142,7 @@ public class HistoryActivity extends AppCompatActivity implements View.OnClickLi
             public void onCancelled(DatabaseError error) {
 
             }
+
         });
 
 
@@ -149,7 +152,7 @@ public class HistoryActivity extends AppCompatActivity implements View.OnClickLi
             int contCount = 0;
             if (cMonthArr[month] != null) {
                 for (Object i : cMonthArr[month]) {
-                    contamTot += (int) i;
+                    contamTot += (Long) i;
                     contCount++;
                 }
             }
@@ -167,7 +170,7 @@ public class HistoryActivity extends AppCompatActivity implements View.OnClickLi
             int virCount = 0;
             if (vMonthArr[month] != null) {
                 for (Object i : vMonthArr[month]) {
-                    virusTot += (int) i;
+                    virusTot += (Long) i;
                     virCount++;
                 }
             }
