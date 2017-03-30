@@ -11,11 +11,33 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.HashMap;
+import java.util.Locale;
+
 public class HistoryActivity extends AppCompatActivity implements View.OnClickListener {
+
+    private final FirebaseDatabase database = FirebaseDatabase.getInstance();
+    private DatabaseReference ref;
+    private final ArrayList[] cMonthArr = new ArrayList[12];
+    private final ArrayList[] vMonthArr = new ArrayList[12];
+//    private final ArrayList contamArr = new ArrayList<>();
+//    private final ArrayList virusArr = new ArrayList<>();
 
     private GraphView graph;
     private EditText editTextLocation;
@@ -26,6 +48,12 @@ public class HistoryActivity extends AppCompatActivity implements View.OnClickLi
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        for (int i = 0; i < 12; i++) {
+            cMonthArr[i] = new ArrayList();
+            vMonthArr[i] = new ArrayList();
+
+        }
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_history);
 
@@ -49,6 +77,7 @@ public class HistoryActivity extends AppCompatActivity implements View.OnClickLi
         //pull info from ui elements
         String location = editTextLocation.getText().toString().trim();
         String year = editTextYear.getText().toString().trim();
+        final int yearInt = Integer.parseInt(year);
 
         //input validation for location
         String[] locationSplit = location.split(",");
@@ -80,11 +109,86 @@ public class HistoryActivity extends AppCompatActivity implements View.OnClickLi
         //Search through purity reports using getChildren and a for loop
         //Only use report if it matches the year input by manager
         //If there are multiple reports with the same month, average them
+        ref = database.getReference();
+        ref.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot data) {
+                HashMap pReport;
+                for (DataSnapshot i : data.child("purity").getChildren()) {
+                    pReport = (HashMap) i.getValue();
+                    String dateValue = pReport.get("dateTime").toString();
+                    Calendar reportDate = new GregorianCalendar();
+                    DateFormat format = new SimpleDateFormat("MM/dd/yyyy HH:mm", Locale.ENGLISH);
+                    Long cPPM = (Long) pReport.get("contaminantPPM");
+                    Long vPPM = (Long) pReport.get("virusPPM");
+                    try {
+                        Date date = format.parse(dateValue);
+                        reportDate.setTime(date);
+                        int reportYear = reportDate.get(Calendar.YEAR);
+                        if (reportYear == yearInt) {
+                            int reportMonth = reportDate.get(Calendar.MONTH);
+                            cMonthArr[reportMonth].add(cPPM);
+                            vMonthArr[reportMonth].add(vPPM);
+                        }
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+
+            }
+        });
+
+
+        int[] contamAvg = new int[12];
+        for (int month = 0; month < 12; month ++) {
+            int contamTot = 0;
+            int contCount = 0;
+            if (cMonthArr[month] != null) {
+                for (Object i : cMonthArr[month]) {
+                    contamTot += (int) i;
+                    contCount++;
+                }
+            }
+            if (contCount != 0) {
+                contamAvg[month] = contamTot / contCount;
+            } else {
+                contamAvg[month] = 0;
+            }
+        }
+
+        int[] virusAvg = new int[12];
+
+        for (int month = 0; month < 12; month++) {
+            int virusTot = 0;
+            int virCount = 0;
+            if (vMonthArr[month] != null) {
+                for (Object i : vMonthArr[month]) {
+                    virusTot += (int) i;
+                    virCount++;
+                }
+            }
+            if (virCount != 0) {
+                virusAvg[month] = virusTot / virCount;
+            } else {
+                virusAvg[month] = 0;
+            }
+        }
 
         //create actual graph
         DataPoint[] dataPoints = new DataPoint[12];
-        for (int i = 0; i < 12; i++){
-            dataPoints[i] = new DataPoint(i, 1);    //instead of 1, it should be the virus/contaminant ppm average for that month
+        String waterCondition = spinnerVirusCon.getSelectedItem().toString();
+        if (waterCondition == "Virus") {
+            for (int i = 0; i < 12; i++){
+                dataPoints[i] = new DataPoint(i, virusAvg[i]);    //instead of 1, it should be the virus/contaminant ppm average for that month
+            }
+        } else {
+            for (int i = 0; i < 12; i++){
+                dataPoints[i] = new DataPoint(i, contamAvg[i]);    //instead of 1, it should be the virus/contaminant ppm average for that month
+            }
         }
         LineGraphSeries<DataPoint> series = new LineGraphSeries<>(dataPoints);
         graph.addSeries(series);
