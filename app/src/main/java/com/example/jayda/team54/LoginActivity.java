@@ -1,6 +1,5 @@
 package com.example.jayda.team54;
 
-import android.app.Application;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.annotation.NonNull;

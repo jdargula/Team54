@@ -59,7 +59,7 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
         accountSpinner = (Spinner) findViewById(R.id.spinner2);
 
         String[] accountArr = {"User", "Worker", "Manager", "Admin"};
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, accountArr);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, accountArr);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         accountSpinner.setAdapter(adapter);
 

@@ -3,18 +3,18 @@ package com.example.jayda.team54;
 import java.io.Serializable;
 
 /**
- * Created by Emily on 2/24/2017.
+ * Information submitted for water source reports.
  */
 
-public class WaterSourceReport implements Serializable {
+@SuppressWarnings("FieldCanBeLocal")
+class WaterSourceReport implements Serializable {
 
-    //Many of these probably shouldn't actually be strings, im just not sure what they should be right now lol
-    public String dateTime;
-    public int reportNum;
-    public String reporterName;
-    public String waterLocation;
-    public String waterType;
-    public String waterCondition;
+    private final String dateTime;
+    private final int reportNum;
+    private final String reporterName;
+    private final String waterLocation;
+    private final String waterType;
+    private final String waterCondition;
 
     /**
      * Class constructor with params for dateTime, reportNum, reporterName, waterLocation, waterType, and waterCondition.
@@ -25,6 +25,7 @@ public class WaterSourceReport implements Serializable {
      * @param waterType The type of water
      * @param waterCondition The condition of the water, how drinkable it is
      */
+
     public WaterSourceReport(String dateTime, int reportNum, String reporterName, String waterLocation, String waterType, String waterCondition) {
         this.dateTime = dateTime;
         this.reportNum = reportNum;
@@ -32,13 +33,5 @@ public class WaterSourceReport implements Serializable {
         this.waterLocation = waterLocation;
         this.waterType = waterType;
         this.waterCondition = waterCondition;
-    }
-
-    /**
-     * Getter for waterLocation
-     * @return waterLocation The location of the water source
-     */
-    public String getWaterLocation() {
-        return waterLocation;
     }
 }

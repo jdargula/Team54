@@ -1,7 +1,6 @@
 package com.example.jayda.team54;
 
 import android.content.Intent;
-import android.support.annotation.IntegerRes;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -33,7 +32,6 @@ import java.util.Locale;
 public class HistoryActivity extends AppCompatActivity implements View.OnClickListener {
 
     private final FirebaseDatabase database = FirebaseDatabase.getInstance();
-    private DatabaseReference ref;
     private final ArrayList[] cMonthArr = new ArrayList[12];
     private final ArrayList[] vMonthArr = new ArrayList[12];
 
@@ -47,8 +45,8 @@ public class HistoryActivity extends AppCompatActivity implements View.OnClickLi
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         for (int i = 0; i < 12; i++) {
-            cMonthArr[i] = new ArrayList();
-            vMonthArr[i] = new ArrayList();
+            cMonthArr[i] = new ArrayList<>();
+            vMonthArr[i] = new ArrayList<>();
         }
 
         super.onCreate(savedInstanceState);
@@ -62,7 +60,7 @@ public class HistoryActivity extends AppCompatActivity implements View.OnClickLi
         spinnerVirusCon = (Spinner) findViewById(R.id.spinnerVirusContaminant);
 
         String[] virusConArr = {"Virus", "Contaminant"};
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, virusConArr);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, virusConArr);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerVirusCon.setAdapter(adapter);
 
@@ -107,7 +105,7 @@ public class HistoryActivity extends AppCompatActivity implements View.OnClickLi
         }
 
         //reading info from database; get virus/contaminant ppm data for relevant year/location
-        ref = database.getReference();
+        DatabaseReference ref = database.getReference();
         ref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot data) {

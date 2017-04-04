@@ -1,18 +1,19 @@
 package com.example.jayda.team54;
 
 /**
- * Created by Emily on 3/14/2017.
+ * Information submitted for water purity reports.
  */
 
-public class WaterPurityReport {
+@SuppressWarnings("FieldCanBeLocal")
+class WaterPurityReport {
 
-    public String dateTime;
-    public int reportNum;
-    public String workerName;
-    public String waterLocation;
-    public String waterCondition;
-    public int virusPPM;
-    public int contaminantPPM;
+    private final String dateTime;
+    private final int reportNum;
+    private final String workerName;
+    private final String waterLocation;
+    private final String waterCondition;
+    private final int virusPPM;
+    private final int contaminantPPM;
 
     /**
      * Class constructor with params for dateTime, reportNum, workerName, waterLocation, waterCondition, virusPPM, and contaminantPPM.
@@ -24,6 +25,7 @@ public class WaterPurityReport {
      * @param virusPPM The level of viruses in the water source.
      * @param contaminantPPM The level of contamination in the water source.
      */
+
     public WaterPurityReport(String dateTime, int reportNum, String workerName, String waterLocation, String waterCondition, int virusPPM, int contaminantPPM){
         this.dateTime = dateTime;
         this.reportNum = reportNum;

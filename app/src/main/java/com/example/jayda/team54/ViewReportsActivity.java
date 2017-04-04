@@ -17,7 +17,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 
 /**
- * Created by Emily on 2/25/2017.
+ * Activity to view water reports.
  */
 
 public class ViewReportsActivity extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemClickListener {
@@ -25,14 +25,13 @@ public class ViewReportsActivity extends AppCompatActivity implements View.OnCli
     private Button buttonHome;
     private ListView list;
     private final FirebaseDatabase database = FirebaseDatabase.getInstance();
-    private DatabaseReference ref;
     private final ArrayList<String> reportsArr = new ArrayList<>();
 
     /**
      * Get data from database and add to array for use in ListView adapter
      */
-    public void getData() {
-        ref = database.getReference();
+    private void getData() {
+        DatabaseReference ref = database.getReference();
         ref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot data) {
@@ -41,7 +40,7 @@ public class ViewReportsActivity extends AppCompatActivity implements View.OnCli
                         reportsArr.add(i.getKey());
                     }
                 }
-                ArrayAdapter arrayAdapter = new ArrayAdapter(ViewReportsActivity.this,
+                ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(ViewReportsActivity.this,
                         android.R.layout.simple_list_item_1, reportsArr);
                 list.setAdapter(arrayAdapter);
             }

@@ -1,8 +1,6 @@
 package com.example.jayda.team54;
 
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.HashMap;
 import java.util.TimeZone;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -27,7 +25,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 /**
- * Created by Emily on 2/24/2017.
+ * Activity for submitting a water report.
  */
 
 public class SubmitReportActivity extends AppCompatActivity implements View.OnClickListener {
@@ -43,21 +41,14 @@ public class SubmitReportActivity extends AppCompatActivity implements View.OnCl
 
     private long reportNumberValue;
 
-    private FirebaseAuth firebaseAuth;
     private DatabaseReference databaseReference;
-
-    private TimeZone tz;
-    private Calendar calendar;
-    private Date currentTime;
-    private String currentDateTime;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_submit_report);
 
-        firebaseAuth = FirebaseAuth.getInstance();
+        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
         databaseReference = FirebaseDatabase.getInstance().getReference();
         FirebaseUser user = firebaseAuth.getCurrentUser();
 
@@ -101,11 +92,11 @@ public class SubmitReportActivity extends AppCompatActivity implements View.OnCl
         reportNumReference.addValueEventListener(reportNumListener);
 
         //Autogenerate date and time
-        tz = TimeZone.getTimeZone("America/New_York");
-        calendar = new GregorianCalendar(tz);
-        currentTime = new Date();
+        TimeZone tz = TimeZone.getTimeZone("America/New_York");
+        Calendar calendar = new GregorianCalendar(tz);
+        Date currentTime = new Date();
         calendar.setTime(currentTime);
-        currentDateTime = (calendar.get(Calendar.MONTH) + 1) + "/" + calendar.get(Calendar.DAY_OF_MONTH)
+        String currentDateTime = (calendar.get(Calendar.MONTH) + 1) + "/" + calendar.get(Calendar.DAY_OF_MONTH)
                 + "/" + calendar.get(Calendar.YEAR) + " " + calendar.get(Calendar.HOUR) + ":"
                 + calendar.get(Calendar.MINUTE);
         editTextDateTime.setText(currentDateTime);
@@ -128,12 +119,12 @@ public class SubmitReportActivity extends AppCompatActivity implements View.OnCl
 
         //Set up spinners
         String[] typeWaterArr = {"Bottled", "Well", "Stream", "Lake", "Spring", "Other"};
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, typeWaterArr);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, typeWaterArr);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerTypeWater.setAdapter(adapter);
 
         String[] conditionWaterArr = {"Waste", "Treatable-Clear", "Treatable-Muddy", "Potable"};
-        ArrayAdapter<String> adapter1 = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, conditionWaterArr);
+        ArrayAdapter<String> adapter1 = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, conditionWaterArr);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerConditionWater.setAdapter(adapter1);
 
