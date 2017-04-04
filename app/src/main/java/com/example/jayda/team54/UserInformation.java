@@ -21,6 +21,6 @@ class UserInformation {
         this.name = n;
         this.address = a;
     }
-    private final String name;
-    private final String address;
+    private String name;
+    private String address;
 }
