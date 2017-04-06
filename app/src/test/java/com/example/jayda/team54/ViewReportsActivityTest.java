@@ -1,7 +1,5 @@
 package com.example.jayda.team54;
 
-import com.example.jayda.team54.ViewReportsActivity;
-
 import org.junit.Test;
 
 import static org.junit.Assert.*;
