@@ -180,7 +180,7 @@ public class HistoryActivity extends AppCompatActivity implements View.OnClickLi
         //create actual graph
         DataPoint[] dataPoints = new DataPoint[12];
         String waterCondition = spinnerVirusCon.getSelectedItem().toString();
-        if (waterCondition == "Virus") {
+        if (waterCondition.equals("Virus")) {
             for (int i = 0; i < 12; i++){
                 dataPoints[i] = new DataPoint(i, virusAvg[i]);    //instead of 1, it should be the virus/contaminant ppm average for that month
             }

@@ -24,13 +24,15 @@ public class ViewReportsActivity extends AppCompatActivity implements View.OnCli
 
     private Button buttonHome;
     private ListView list;
-    private final FirebaseDatabase database = FirebaseDatabase.getInstance();
     private final ArrayList<String> reportsArr = new ArrayList<>();
+    private int reportNum;
 
     /**
      * Get data from database and add to array for use in ListView adapter
      */
-    private void getData() {
+
+    public void getData() {
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference ref = database.getReference();
         ref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -38,6 +40,9 @@ public class ViewReportsActivity extends AppCompatActivity implements View.OnCli
                 for (DataSnapshot i : data.child("reports").getChildren()) {
                     if (!(i.getKey().equals("reportNum"))) {
                         reportsArr.add(i.getKey());
+                    }
+                    if (i.getKey().equals("reportNum")) {
+                        reportNum = Integer.parseInt(i.getKey());
                     }
                 }
                 ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(ViewReportsActivity.this,
@@ -50,6 +55,24 @@ public class ViewReportsActivity extends AppCompatActivity implements View.OnCli
 
             }
         });
+    }
+
+    /**
+     * Method to get the number of elements in the database.
+     * @return reportNum - the number of last report submitted
+     */
+
+    public int getReportNum() {
+        return reportNum;
+    }
+
+    /**
+     * Get the reports array.
+     * @return reportsArr - an array of water report by number
+     */
+
+    public ArrayList<String> getReportsArr() {
+        return reportsArr;
     }
 
     @Override

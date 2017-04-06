@@ -26,11 +26,12 @@ public class ViewPurityActivity extends AppCompatActivity implements View.OnClic
     private ListView list;
     private final FirebaseDatabase database = FirebaseDatabase.getInstance();
     private final ArrayList<String> purityArr = new ArrayList<>();
+    private int reportNum;
 
     /**
      * Get data from the database and add to array for use in the ListView adapter
      */
-    private void getData() {
+    public void getData() {
         DatabaseReference ref = database.getReference();
         ref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -38,6 +39,9 @@ public class ViewPurityActivity extends AppCompatActivity implements View.OnClic
                 for (DataSnapshot i : data.child("purity").getChildren()) {
                     if (!(i.getKey().equals("reportNum"))) {
                         purityArr.add(i.getKey());
+                    }
+                    if (i.getKey().equals("reportNum")) {
+                        reportNum = Integer.parseInt(i.getKey());
                     }
                 }
                 ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(ViewPurityActivity.this,
@@ -50,6 +54,15 @@ public class ViewPurityActivity extends AppCompatActivity implements View.OnClic
 
             }
         });
+    }
+
+    /**
+     * Method to get the number of elements in the database.
+     * @return reportNum - the number of last report submitted
+     */
+
+    public int getReportNum() {
+        return reportNum;
     }
 
     @Override
