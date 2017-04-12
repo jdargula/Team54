@@ -17,22 +17,23 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 
 /**
- * Created by Emily on 2/25/2017.
+ * Activity to view water reports.
  */
 
 public class ViewReportsActivity extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemClickListener {
 
     private Button buttonHome;
     private ListView list;
-    private final FirebaseDatabase database = FirebaseDatabase.getInstance();
-    private DatabaseReference ref;
     private final ArrayList<String> reportsArr = new ArrayList<>();
+    private int reportNum;
 
     /**
      * Get data from database and add to array for use in ListView adapter
      */
+
     public void getData() {
-        ref = database.getReference();
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference ref = database.getReference();
         ref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot data) {
@@ -40,8 +41,11 @@ public class ViewReportsActivity extends AppCompatActivity implements View.OnCli
                     if (!(i.getKey().equals("reportNum"))) {
                         reportsArr.add(i.getKey());
                     }
+                    if (i.getKey().equals("reportNum")) {
+                        reportNum = Integer.parseInt(i.getKey());
+                    }
                 }
-                ArrayAdapter arrayAdapter = new ArrayAdapter(ViewReportsActivity.this,
+                ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(ViewReportsActivity.this,
                         android.R.layout.simple_list_item_1, reportsArr);
                 list.setAdapter(arrayAdapter);
             }
@@ -51,6 +55,24 @@ public class ViewReportsActivity extends AppCompatActivity implements View.OnCli
 
             }
         });
+    }
+
+    /**
+     * Method to get the number of elements in the database.
+     * @return reportNum - the number of last report submitted
+     */
+
+    public int getReportNum() {
+        return reportNum;
+    }
+
+    /**
+     * Get the reports array.
+     * @return reportsArr - an array of water report by number
+     */
+
+    public ArrayList<String> getReportsArr() {
+        return reportsArr;
     }
 
     @Override

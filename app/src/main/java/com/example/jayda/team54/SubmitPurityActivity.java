@@ -3,7 +3,6 @@ package com.example.jayda.team54;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.ButtonBarLayout;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -40,14 +39,7 @@ public class SubmitPurityActivity extends AppCompatActivity implements View.OnCl
     private Button buttonCancel;
 
     //Firebase stuff
-    private FirebaseAuth firebaseAuth;
     private DatabaseReference databaseReference;
-
-    //Date/Time Autogeneration
-    private TimeZone tz;
-    private Calendar calendar;
-    private Date currentTime;
-    private String currentDateTime;
 
     //Report Number Autogeneration
     private long reportNumberValue;
@@ -58,7 +50,7 @@ public class SubmitPurityActivity extends AppCompatActivity implements View.OnCl
         setContentView(R.layout.activity_submit_purity);
 
         //Firebase initialization
-        firebaseAuth = FirebaseAuth.getInstance();
+        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
         databaseReference = FirebaseDatabase.getInstance().getReference();
         FirebaseUser user = firebaseAuth.getCurrentUser();
 
@@ -76,7 +68,7 @@ public class SubmitPurityActivity extends AppCompatActivity implements View.OnCl
 
         //Set up Spinners
         String[] conditionArr = {"Safe", "Treatable", "Unsafe"};
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, conditionArr);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, conditionArr);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerWaterCondition.setAdapter(adapter);
 
@@ -85,11 +77,11 @@ public class SubmitPurityActivity extends AppCompatActivity implements View.OnCl
         buttonCancel.setOnClickListener(this);
 
         //Autogenerate date and time
-        tz = TimeZone.getTimeZone("America/New_York");
-        calendar = new GregorianCalendar(tz);
-        currentTime = new Date();
+        TimeZone tz = TimeZone.getTimeZone("America/New_York");
+        Calendar calendar = new GregorianCalendar(tz);
+        Date currentTime = new Date();
         calendar.setTime(currentTime);
-        currentDateTime = (calendar.get(Calendar.MONTH) + 1) + "/" + calendar.get(Calendar.DAY_OF_MONTH)
+        String currentDateTime = (calendar.get(Calendar.MONTH) + 1) + "/" + calendar.get(Calendar.DAY_OF_MONTH)
                 + "/" + calendar.get(Calendar.YEAR) + " " + calendar.get(Calendar.HOUR) + ":"
                 + calendar.get(Calendar.MINUTE);
         editTextDateTime.setText(currentDateTime);

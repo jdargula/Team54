@@ -1,10 +1,11 @@
 package com.example.jayda.team54;
 
 /**
- * Created by jayda on 2/17/2017.
+ * User Information class.
  */
 
-public class UserInformation {
+@SuppressWarnings("FieldCanBeLocal")
+class UserInformation {
 
     /**
      * No args class constructor.
@@ -17,11 +18,9 @@ public class UserInformation {
      * @param a The user's home address
      */
     public UserInformation(String n, String a) {
-        name = n;
-        address = a;
+        this.name = n;
+        this.address = a;
     }
-
-    public String name;
-    public String address;
-
+    private String name;
+    private String address;
 }

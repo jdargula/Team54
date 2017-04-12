@@ -1,6 +1,5 @@
 package com.example.jayda.team54;
 
-import android.app.Application;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -8,7 +7,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.google.android.gms.fitness.data.Value;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -18,15 +16,13 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 /**
- * Created by Alex on 2/21/2017.
+ * Activity for home screen functionality.
  */
 
 public class HomeActivity extends AppCompatActivity implements View.OnClickListener {
 
     private FirebaseAuth firebaseAuth;
-    DatabaseReference databaseReference;
 
-    private TextView textViewUserWelcome;
     private Button buttonLogout;
     private Button buttonEditProfile;
     private Button buttonSubmitWaterReport;
@@ -42,7 +38,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_home);
 
         firebaseAuth = FirebaseAuth.getInstance();
-        databaseReference = FirebaseDatabase.getInstance().getReference();
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
 
         if (firebaseAuth.getCurrentUser() == null) {
             finish();
@@ -52,7 +48,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         FirebaseUser user = firebaseAuth.getCurrentUser();
 
         //get ui references
-        textViewUserWelcome = (TextView) findViewById(R.id.textViewUserWelcome);
+        TextView textViewUserWelcome = (TextView) findViewById(R.id.textViewUserWelcome);
         textViewUserWelcome.setText("Welcome, " + user.getEmail()); //We can change this to display name later
         buttonEditProfile = (Button) findViewById(R.id.buttonEditProfile);
         buttonSubmitWaterReport = (Button) findViewById(R.id.buttonSubmitWaterReport);

@@ -1,18 +1,22 @@
 package com.example.jayda.team54;
 
 /**
- * Created by Emily on 3/14/2017.
+ * Information submitted for water purity reports.
  */
 
-public class WaterPurityReport {
+@SuppressWarnings("FieldCanBeLocal")
+class WaterPurityReport {
 
-    public String dateTime;
-    public int reportNum;
-    public String workerName;
-    public String waterLocation;
-    public String waterCondition;
-    public int virusPPM;
-    public int contaminantPPM;
+    private final String dateTime;
+    private final int reportNum;
+    private final String workerName;
+    private final String waterLocation;
+    private final String waterCondition;
+    private final int virusPPM;
+    private final int contaminantPPM;
+
+    public static final int MAX_LAT = 90;
+    public static final int MAX_LONG = 180;
 
     /**
      * Class constructor with params for dateTime, reportNum, workerName, waterLocation, waterCondition, virusPPM, and contaminantPPM.
@@ -24,6 +28,7 @@ public class WaterPurityReport {
      * @param virusPPM The level of viruses in the water source.
      * @param contaminantPPM The level of contamination in the water source.
      */
+
     public WaterPurityReport(String dateTime, int reportNum, String workerName, String waterLocation, String waterCondition, int virusPPM, int contaminantPPM){
         this.dateTime = dateTime;
         this.reportNum = reportNum;
@@ -34,4 +39,22 @@ public class WaterPurityReport {
         this.contaminantPPM = contaminantPPM;
     }
 
+    /**
+     * Method to validate latitude and longitude inputs from water location
+     * @return check - true or false based on validity
+     */
+
+    public boolean locationCheck() {
+        boolean check = true;
+        String[] locArr = waterLocation.split(",");
+        int latitude = Integer.parseInt(locArr[0].trim());
+        int longitude = Integer.parseInt(locArr[1].trim());
+        if (Math.abs(latitude) > MAX_LAT) {
+            check = false;
+        }
+        if (Math.abs(longitude) > MAX_LONG) {
+            check = false;
+        }
+        return check;
+    }
 }

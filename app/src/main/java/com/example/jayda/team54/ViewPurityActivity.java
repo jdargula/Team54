@@ -18,21 +18,21 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 
 /**
- * Created by Josufi on 3/14/17.
+ * Activity to view water purity reports.
  */
 
 public class ViewPurityActivity extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemClickListener {
     private Button buttonHome;
     private ListView list;
     private final FirebaseDatabase database = FirebaseDatabase.getInstance();
-    private DatabaseReference ref;
     private final ArrayList<String> purityArr = new ArrayList<>();
+    private int reportNum;
 
     /**
      * Get data from the database and add to array for use in the ListView adapter
      */
     public void getData() {
-        ref = database.getReference();
+        DatabaseReference ref = database.getReference();
         ref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot data) {
@@ -40,8 +40,11 @@ public class ViewPurityActivity extends AppCompatActivity implements View.OnClic
                     if (!(i.getKey().equals("reportNum"))) {
                         purityArr.add(i.getKey());
                     }
+                    if (i.getKey().equals("reportNum")) {
+                        reportNum = Integer.parseInt(i.getKey());
+                    }
                 }
-                ArrayAdapter arrayAdapter = new ArrayAdapter(ViewPurityActivity.this,
+                ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(ViewPurityActivity.this,
                         android.R.layout.simple_list_item_1, purityArr);
                 list.setAdapter(arrayAdapter);
             }
@@ -51,6 +54,15 @@ public class ViewPurityActivity extends AppCompatActivity implements View.OnClic
 
             }
         });
+    }
+
+    /**
+     * Method to get the number of elements in the database.
+     * @return reportNum - the number of last report submitted
+     */
+
+    public int getReportNum() {
+        return reportNum;
     }
 
     @Override

@@ -18,7 +18,6 @@ import java.util.HashMap;
 public class PurityDetailActivity extends AppCompatActivity implements View.OnClickListener {
 
     //extra info passed through Intent by ViewPurityActivity
-    private String key;
 
     //ui elements
     private TextView reportNumber;
@@ -30,14 +29,12 @@ public class PurityDetailActivity extends AppCompatActivity implements View.OnCl
     private TextView contaminantPPM;
     private Button buttonBack;
 
-    DatabaseReference databaseRef;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_purity_detail);
 
-        key = getIntent().getStringExtra("key");
+        String key = getIntent().getStringExtra("key");
 
         //get ui elements
         reportNumber = (TextView) findViewById(R.id.reportNum);
@@ -52,7 +49,7 @@ public class PurityDetailActivity extends AppCompatActivity implements View.OnCl
         buttonBack.setOnClickListener(this);
 
         //read report info from database
-        databaseRef = FirebaseDatabase.getInstance().getReference();
+        DatabaseReference databaseRef = FirebaseDatabase.getInstance().getReference();
         DatabaseReference reportRef = databaseRef.child("purity").child(key);
         ValueEventListener reportListener = new ValueEventListener() {
             @Override

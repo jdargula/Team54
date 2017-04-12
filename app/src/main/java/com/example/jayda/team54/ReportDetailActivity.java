@@ -18,7 +18,6 @@ import java.util.HashMap;
 public class ReportDetailActivity extends AppCompatActivity implements View.OnClickListener {
 
     //extra info passed through Intent by ViewReportsActivity
-    private String key;
 
     //ui elements
     private TextView reportNumber;
@@ -29,14 +28,12 @@ public class ReportDetailActivity extends AppCompatActivity implements View.OnCl
     private TextView waterCondition;
     private Button buttonBack;
 
-    DatabaseReference databaseRef;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_report_detail);
 
-        key = getIntent().getStringExtra("key");
+        String key = getIntent().getStringExtra("key");
 
         //get ui elements
         reportNumber = (TextView) findViewById(R.id.reportNum);
@@ -50,7 +47,7 @@ public class ReportDetailActivity extends AppCompatActivity implements View.OnCl
         buttonBack.setOnClickListener(this);
 
         //read report info from database
-        databaseRef = FirebaseDatabase.getInstance().getReference();
+        DatabaseReference databaseRef = FirebaseDatabase.getInstance().getReference();
         DatabaseReference reportRef = databaseRef.child("reports").child(key);
         ValueEventListener reportListener = new ValueEventListener() {
             @Override

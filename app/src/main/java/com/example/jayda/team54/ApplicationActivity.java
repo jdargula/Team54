@@ -1,10 +1,8 @@
 package com.example.jayda.team54;
 
-import android.app.Application;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -22,8 +20,6 @@ import com.google.firebase.database.ValueEventListener;
 public class ApplicationActivity extends AppCompatActivity implements View.OnClickListener {
 
     private FirebaseAuth firebaseAuth;
-
-    private TextView textViewUserEmail;
     private Button buttonLogout;
 
     private DatabaseReference databaseReference;
@@ -85,7 +81,7 @@ public class ApplicationActivity extends AppCompatActivity implements View.OnCli
         };
         addressReference.addValueEventListener((addressListener));
 
-        textViewUserEmail = (TextView) findViewById(R.id.textViewUserEmail);
+        TextView textViewUserEmail = (TextView) findViewById(R.id.textViewUserEmail);
         textViewUserEmail.setText("Welcome, " + user.getEmail());
         buttonLogout = (Button) findViewById(R.id.buttonLogout);
 
