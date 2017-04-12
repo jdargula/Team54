@@ -17,8 +17,6 @@ class WaterPurityReport {
 
     public static final int MAX_LAT = 90;
     public static final int MAX_LONG = 180;
-    public static final int MIN_LAT = -90;
-    public static final int MIN_LONG = -180;
 
     /**
      * Class constructor with params for dateTime, reportNum, workerName, waterLocation, waterCondition, virusPPM, and contaminantPPM.
@@ -51,10 +49,10 @@ class WaterPurityReport {
         String[] locArr = waterLocation.split(",");
         int latitude = Integer.parseInt(locArr[0].trim());
         int longitude = Integer.parseInt(locArr[1].trim());
-        if (Math.abs(latitude) > MAX_LAT || Math.abs(latitude) < MIN_LAT) {
+        if (Math.abs(latitude) > MAX_LAT) {
             check = false;
         }
-        if (Math.abs(longitude) > MAX_LONG || Math.abs(longitude) < MIN_LONG) {
+        if (Math.abs(longitude) > MAX_LONG) {
             check = false;
         }
         return check;
