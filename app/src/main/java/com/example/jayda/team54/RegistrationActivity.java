@@ -129,6 +129,45 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
 
     }
 
+    /**
+     *  Method to validate the email entered by the user
+     *  @param email email as a string to check for validity
+     *  @return valid - true or false based on validity
+     */
+    public static boolean checkEmail(String email) {
+        boolean valid = true;
+        if (email == null) {
+            valid = false;
+            return valid;
+        } else {
+            if (email.contains("@")) {
+                String[] splitEmail = email.split("@");
+                if (splitEmail[0].length() < 1) {
+                    valid = false;
+                }
+                if (splitEmail[1].length() < 4) {
+                    valid = false;
+                }
+            } else {
+                valid = false;
+            }
+        }
+        return valid;
+    }
+
+    /**
+     *  Method to validate the password entered by the user
+     *  @param pass password as a string to check for valid length
+     *  @return valid - true or false based on validity
+     */
+    public static boolean checkPassword(String pass) {
+        boolean valid = true;
+        if (pass == null || pass.length() < 2 || pass.contains(" ")) {
+            valid = false;
+        }
+        return valid;
+    }
+
     @Override
     public void onClick(View view) {
         if (view == buttonRegister) {
