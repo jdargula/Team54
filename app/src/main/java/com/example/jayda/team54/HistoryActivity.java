@@ -76,33 +76,11 @@ public class HistoryActivity extends AppCompatActivity implements View.OnClickLi
         //pull info from ui elements
         String location = editTextLocation.getText().toString().trim();
         String year = editTextYear.getText().toString().trim();
+
+        if (!validateGraph(location, year)) {
+            return;
+        }
         final int yearInt = Integer.parseInt(year);
-
-        //input validation for location
-        String[] locationSplit = location.split(",");
-        try {
-            int lat = Integer.parseInt(locationSplit[0].trim());
-            int lng = Integer.parseInt(locationSplit[1].trim());
-            if (lat < -90 || lat > 90){
-                Toast.makeText(HistoryActivity.this, "Latitude is from -90 to 90", Toast.LENGTH_SHORT).show();
-                return;
-            }
-            if (lng < -180 || lng > 180) {
-                Toast.makeText(HistoryActivity.this, "Longitude is from -180 to 180", Toast.LENGTH_SHORT).show();
-                return;
-            }
-        } catch (Exception e){
-            Toast.makeText(HistoryActivity.this, "Please enter location format: LAT,LONG", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        //input validation for year
-        try {
-            int yr = Integer.parseInt(year);
-        } catch (Exception e){
-            Toast.makeText(HistoryActivity.this, "Please enter a valid year", Toast.LENGTH_SHORT).show();
-            return;
-        }
 
         //reading info from database; get virus/contaminant ppm data for relevant year/location
         DatabaseReference ref = database.getReference();
@@ -192,6 +170,41 @@ public class HistoryActivity extends AppCompatActivity implements View.OnClickLi
         LineGraphSeries<DataPoint> series = new LineGraphSeries<>(dataPoints);
         graph.addSeries(series);
         Toast.makeText(HistoryActivity.this, "Graph created", Toast.LENGTH_SHORT).show();
+    }
+
+    /**
+     * Method to validate input from the user to create the graph.
+     * @param location A string location to check if valid
+     * @param year A string year to check if valid
+     * @return A boolean based on whether input strings are valid or not
+     */
+    public static boolean validateGraph(String location, String year){
+        //input validation for location
+        String[] locationSplit = location.split(",");
+        try {
+            int lat = Integer.parseInt(locationSplit[0].trim());
+            int lng = Integer.parseInt(locationSplit[1].trim());
+            if (lat < -90 || lat > 90){
+                //Toast.makeText(this, "Latitude is from -90 to 90", Toast.LENGTH_SHORT).show();
+                return false;
+            }
+            if (lng < -180 || lng > 180) {
+                //Toast.makeText(HistoryActivity.this, "Longitude is from -180 to 180", Toast.LENGTH_SHORT).show();
+                return false;
+            }
+        } catch (Exception e){
+            //Toast.makeText(HistoryActivity.this, "Please enter location format: LAT,LONG", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        //input validation for year
+        try {
+            int yr = Integer.parseInt(year);
+        } catch (Exception e){
+            //Toast.makeText(HistoryActivity.this, "Please enter a valid year", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        return true;
     }
 
     @Override
