@@ -15,6 +15,11 @@ class WaterPurityReport {
     private final int virusPPM;
     private final int contaminantPPM;
 
+    public static final int MAX_LAT = 90;
+    public static final int MAX_LONG = 180;
+    public static final int MIN_LAT = -90;
+    public static final int MIN_LONG = -180;
+
     /**
      * Class constructor with params for dateTime, reportNum, workerName, waterLocation, waterCondition, virusPPM, and contaminantPPM.
      * @param dateTime Date and time the report was created.
@@ -36,4 +41,22 @@ class WaterPurityReport {
         this.contaminantPPM = contaminantPPM;
     }
 
+    /**
+     * Method to validate latitude and longitude inputs from water location
+     * @return check - true or false based on validity
+     */
+
+    public boolean locationCheck() {
+        boolean check = true;
+        String[] locArr = waterLocation.split(",");
+        int latitude = Integer.parseInt(locArr[0].trim());
+        int longitude = Integer.parseInt(locArr[1].trim());
+        if (Math.abs(latitude) > MAX_LAT || Math.abs(latitude) < MIN_LAT) {
+            check = false;
+        }
+        if (Math.abs(longitude) > MAX_LONG || Math.abs(longitude) < MIN_LONG) {
+            check = false;
+        }
+        return check;
+    }
 }
