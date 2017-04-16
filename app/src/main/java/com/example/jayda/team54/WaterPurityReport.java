@@ -18,6 +18,14 @@ class WaterPurityReport {
     public static final int MAX_LAT = 90;
     public static final int MAX_LONG = 180;
 
+    public String getDateTime() { return dateTime; }
+    public int getReportNum() { return  reportNum; }
+    public String getWorkerName() { return workerName; }
+    public String getWaterLocation() { return waterLocation; }
+    public String getWaterCondition() { return  waterCondition; }
+    public int getVirusPPM() { return virusPPM; }
+    public int getContaminantPPM() { return  contaminantPPM; }
+
     /**
      * Class constructor with params for dateTime, reportNum, workerName, waterLocation, waterCondition, virusPPM, and contaminantPPM.
      * @param dateTime Date and time the report was created.

@@ -3,7 +3,9 @@ package com.example.jayda.team54;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -44,6 +46,10 @@ public class HistoryActivity extends AppCompatActivity implements View.OnClickLi
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        getSupportActionBar().setTitle("History");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         for (int i = 0; i < 12; i++) {
             cMonthArr[i] = new ArrayList<>();
             vMonthArr[i] = new ArrayList<>();
@@ -66,6 +72,8 @@ public class HistoryActivity extends AppCompatActivity implements View.OnClickLi
 
         buttonCreateGraph.setOnClickListener(this);
         buttonDone.setOnClickListener(this);
+
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
     }
 
     /**
@@ -217,5 +225,12 @@ public class HistoryActivity extends AppCompatActivity implements View.OnClickLi
             finish();
             startActivity(new Intent(this, HomeActivity.class));
         }
+    }
+
+    public boolean onOptionsItemSelected(MenuItem item){
+        Intent myIntent = new Intent(getApplicationContext(), HomeActivity.class);
+        startActivityForResult(myIntent, 0);
+        return true;
+
     }
 }

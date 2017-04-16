@@ -8,7 +8,10 @@ import java.util.GregorianCalendar;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.InputType;
+import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -48,6 +51,9 @@ public class SubmitReportActivity extends AppCompatActivity implements View.OnCl
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_submit_report);
 
+        getSupportActionBar().setTitle("Submit Water Source Report");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
         databaseReference = FirebaseDatabase.getInstance().getReference();
         FirebaseUser user = firebaseAuth.getCurrentUser();
@@ -61,6 +67,8 @@ public class SubmitReportActivity extends AppCompatActivity implements View.OnCl
         editTextLocationWater = (EditText) findViewById(R.id.editTextLocationWater);
         spinnerTypeWater = (Spinner) findViewById(R.id.spinnerTypeWater);
         spinnerConditionWater = (Spinner) findViewById(R.id.spinnerConditionWater);
+
+        editTextReportNumber.setInputType(InputType.TYPE_NULL);
 
         //Autogenerate report number
         DatabaseReference reportNumReference = databaseReference.child("reports");
@@ -131,6 +139,8 @@ public class SubmitReportActivity extends AppCompatActivity implements View.OnCl
         //Set up buttons
         buttonSubmitReport.setOnClickListener(this);
         buttonCancel.setOnClickListener(this);
+
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
     }
 
     /**
@@ -192,5 +202,11 @@ public class SubmitReportActivity extends AppCompatActivity implements View.OnCl
             finish();
             startActivity(new Intent(this, HomeActivity.class));
         }
+    }
+
+    public boolean onOptionsItemSelected(MenuItem item){
+        Intent myIntent = new Intent(getApplicationContext(), HomeActivity.class);
+        startActivityForResult(myIntent, 0);
+        return true;
     }
 }

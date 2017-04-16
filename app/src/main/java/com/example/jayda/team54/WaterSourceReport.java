@@ -19,6 +19,13 @@ class WaterSourceReport implements Serializable {
     public static final int MAX_LAT = 90;
     public static final int MAX_LONG = 180;
 
+    public String getDateTime() { return dateTime; }
+    public int getReportNum() { return reportNum; }
+    public String getReporterName() { return reporterName; }
+    public String getWaterLocation() { return waterLocation; }
+    public String getWaterType() { return waterType; }
+    public String getWaterCondition() { return waterCondition; }
+
     /**
      * Class constructor with params for dateTime, reportNum, reporterName, waterLocation, waterType, and waterCondition.
      * @param dateTime Date and time the report was created.

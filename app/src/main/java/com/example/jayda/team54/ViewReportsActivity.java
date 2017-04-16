@@ -1,6 +1,7 @@
 package com.example.jayda.team54;
 import java.util.ArrayList;
 
+import android.view.MenuItem;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.content.Intent;
@@ -42,7 +43,7 @@ public class ViewReportsActivity extends AppCompatActivity implements View.OnCli
                         reportsArr.add(i.getKey());
                     }
                     if (i.getKey().equals("reportNum")) {
-                        reportNum = Integer.parseInt(i.getKey());
+                        reportNum = Integer.parseInt(i.getValue().toString());
                     }
                 }
                 ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(ViewReportsActivity.this,
@@ -61,7 +62,6 @@ public class ViewReportsActivity extends AppCompatActivity implements View.OnCli
      * Method to get the number of elements in the database.
      * @return reportNum - the number of last report submitted
      */
-
     public int getReportNum() {
         return reportNum;
     }
@@ -70,7 +70,6 @@ public class ViewReportsActivity extends AppCompatActivity implements View.OnCli
      * Get the reports array.
      * @return reportsArr - an array of water report by number
      */
-
     public ArrayList<String> getReportsArr() {
         return reportsArr;
     }
@@ -79,6 +78,9 @@ public class ViewReportsActivity extends AppCompatActivity implements View.OnCli
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_reports);
+
+        getSupportActionBar().setTitle("View Water Source Reports");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         buttonHome = (Button) findViewById(R.id.buttonHome);
         buttonHome.setOnClickListener(this);
@@ -104,5 +106,12 @@ public class ViewReportsActivity extends AppCompatActivity implements View.OnCli
         intent.setClass(this, ReportDetailActivity.class);
         intent.putExtra("key", key);
         startActivity(intent);
+    }
+
+    public boolean onOptionsItemSelected(MenuItem item){
+        Intent myIntent = new Intent(getApplicationContext(), HomeActivity.class);
+        startActivityForResult(myIntent, 0);
+        return true;
+
     }
 }

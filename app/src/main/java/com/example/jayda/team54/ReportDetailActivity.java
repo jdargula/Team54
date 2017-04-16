@@ -3,6 +3,7 @@ package com.example.jayda.team54;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -32,6 +33,9 @@ public class ReportDetailActivity extends AppCompatActivity implements View.OnCl
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_report_detail);
+
+        getSupportActionBar().setTitle("View Water Source Report");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         String key = getIntent().getStringExtra("key");
 
@@ -82,5 +86,12 @@ public class ReportDetailActivity extends AppCompatActivity implements View.OnCl
             finish();
             startActivity(new Intent(this, ViewReportsActivity.class));
         }
+    }
+
+    public boolean onOptionsItemSelected(MenuItem item){
+        Intent myIntent = new Intent(getApplicationContext(), ViewReportsActivity.class);
+        startActivityForResult(myIntent, 0);
+        return true;
+
     }
 }

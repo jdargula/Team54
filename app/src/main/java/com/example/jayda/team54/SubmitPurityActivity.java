@@ -3,7 +3,9 @@ package com.example.jayda.team54;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -48,6 +50,9 @@ public class SubmitPurityActivity extends AppCompatActivity implements View.OnCl
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_submit_purity);
+
+        getSupportActionBar().setTitle("Submit Purity Report");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         //Firebase initialization
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
@@ -130,6 +135,8 @@ public class SubmitPurityActivity extends AppCompatActivity implements View.OnCl
             }
         };
         reportNumReference.addValueEventListener(reportNumListener);
+
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
     }
 
     /**
@@ -180,5 +187,12 @@ public class SubmitPurityActivity extends AppCompatActivity implements View.OnCl
             finish();
             startActivity(new Intent(this, HomeActivity.class));
         }
+    }
+
+    public boolean onOptionsItemSelected(MenuItem item){
+        Intent myIntent = new Intent(getApplicationContext(), HomeActivity.class);
+        startActivityForResult(myIntent, 0);
+        return true;
+
     }
 }

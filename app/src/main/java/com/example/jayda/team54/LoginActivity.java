@@ -34,6 +34,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        getSupportActionBar().setTitle("Login");
+
         // get data from gui
         buttonSignIn = (Button) findViewById(R.id.buttonSignIn);
         editTextEmail = (EditText) findViewById(R.id.editTextEmail);

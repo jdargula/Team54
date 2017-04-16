@@ -2,6 +2,7 @@ package com.example.jayda.team54;
 
 import java.util.ArrayList;
 
+import android.view.MenuItem;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.content.Intent;
@@ -41,7 +42,7 @@ public class ViewPurityActivity extends AppCompatActivity implements View.OnClic
                         purityArr.add(i.getKey());
                     }
                     if (i.getKey().equals("reportNum")) {
-                        reportNum = Integer.parseInt(i.getKey());
+                        reportNum = Integer.parseInt(i.getValue().toString());
                     }
                 }
                 ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(ViewPurityActivity.this,
@@ -60,7 +61,6 @@ public class ViewPurityActivity extends AppCompatActivity implements View.OnClic
      * Method to get the number of elements in the database.
      * @return reportNum - the number of last report submitted
      */
-
     public int getReportNum() {
         return reportNum;
     }
@@ -69,6 +69,9 @@ public class ViewPurityActivity extends AppCompatActivity implements View.OnClic
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_purity);
+
+        getSupportActionBar().setTitle("View Purity Reports");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         buttonHome = (Button) findViewById(R.id.buttonHome);
         buttonHome.setOnClickListener(this);
@@ -94,5 +97,12 @@ public class ViewPurityActivity extends AppCompatActivity implements View.OnClic
         intent.setClass(this, PurityDetailActivity.class);
         intent.putExtra("key", key);
         startActivity(intent);
+    }
+
+    public boolean onOptionsItemSelected(MenuItem item){
+        Intent myIntent = new Intent(getApplicationContext(), HomeActivity.class);
+        startActivityForResult(myIntent, 0);
+        return true;
+
     }
 }

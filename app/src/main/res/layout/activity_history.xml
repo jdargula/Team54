@@ -58,7 +58,7 @@
         android:textAlignment="center" />
 
     <EditText
-        android:text="0"
+        android:text="2017"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/editTextYear"
